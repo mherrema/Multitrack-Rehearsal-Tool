@@ -1,0 +1,29 @@
+<div class="container">
+	<h1>Songs</h1>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-8 col-md-9">
+			<h4 class="text-weight-normal">Showing {{ data.songs.results.length}} song.</h4>
+			<div class="blog">
+				{{# each data.songs.results}}
+					<div data-ks-editable="{{#if ../user}}{{adminEditableUrl ../../user _id}}{{/if}}" class="post">
+						<h2><a href="{{songUrl slug}}">{{{title}}}</a></h2>
+
+						{{#if image}}<img src="{{{cloudinaryUrl image width=160 height=160 crop='fit' }}}" class="img">{{/if}}
+					</div>
+					{{/each}}
+			</div>
+		</div>
+		<div class="col-sm-4 col-md-3">
+			<h2>Artists</h2>
+			<div style="margin-top: 70px;" class="list-group">
+				<a href="/songs" class="active list-group-item">All Artists</a>
+				{{# each data.artists }}
+					<a href="{{artistUrl key}}" class="false list-group-item">{{name}}</a>
+					{{/each}}
+			</div>
+		</div>
+	</div>
+	{{>pagination}}
+</div>

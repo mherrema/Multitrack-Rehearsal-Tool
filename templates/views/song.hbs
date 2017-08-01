@@ -1,0 +1,65 @@
+<div class="container">
+	<div class="row">
+		<div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+			<article>
+				<p><a href="/songs">&larr; back to the songs</a></p>
+				<hr>
+				<header>
+					<h1>{{data.song.title}}</h1>
+					<h5>
+            {{#if data.song.artist}}{{data.song.artist.name}}{{/if}}
+					</h5>
+					<h5>{{#each data.song.keys}}
+						<a href="/songs/{{../data.song.slug}}?key={{name}}">{{name}}</a>
+					{{/each}}</h5>
+				</header>
+				<div class="song">
+					{{#if data.song.image}}<img src="{{{cloudinaryUrl data.song.image width=750 height=450 crop='fit' }}}" class="img-responsive">{{/if}}
+					{{{data.song.content.extended}}}
+				</div>
+			</article>
+		</div>
+	</div>
+	<div class="row">
+		<div class="post-content">
+			<div id="top-bar" class="playlist-top-bar">
+				<div class="playlist-toolbar">
+					<div class="btn-group">
+						<span class="btn-pause btn btn-warning"><i class="fa fa-pause"></i></span>
+						<span class="btn-play btn btn-success"><i class="fa fa-play"></i></span>
+						<span class="btn-stop btn btn-danger"><i class="fa fa-stop"></i></span>
+						<span class="btn-rewind btn btn-success"><i class="fa fa-fast-backward"></i></span>
+						<span class="btn-fast-forward btn btn-success"><i class="fa fa-fast-forward"></i></span>
+					</div>
+					<span class="audio-pos">00:00:00.0</span>
+				</div>
+			</div>
+			<div id="playlist"></div>
+			<form class="form-inline">
+				<div class="form-group">
+					<label for="master-gain">Master Volume</label>
+					<input type="range" min="0" max="100" value="100" class="master-gain form-control" id="master-gain">
+				</div>
+				<div class="checkbox">
+					<label>
+      <input type="checkbox" class="automatic-scroll" > Automatic Scroll
+    </label>
+				</div>
+			</form>
+			<div class="sound-status"></div>
+			<div class="loading-data"></div>
+		</div>
+	</div>
+</div>
+
+<script>
+      $(function() {
+				var song = {{{json data.song}}};
+				var trackList = {{{json data.trackList}}};
+				var key = {{{json data.key}}};
+				loadTracks(song.title, key, trackList);
+
+			});
+    </script>
+
+<!-- <script src="/js/songController.js"></script> -->
