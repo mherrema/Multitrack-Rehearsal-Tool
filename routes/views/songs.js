@@ -66,7 +66,7 @@ exports = module.exports = function (req, res) {
 			},
 		})
 			.sort('-publishedDate')
-			.populate('keys');
+			.populate('artist keys');
 
 		if (locals.data.artist) {
 			q.where('artist').in([locals.data.artist]);

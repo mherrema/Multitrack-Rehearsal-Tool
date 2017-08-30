@@ -6,9 +6,10 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>Ada Worship</title>
 		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-		<link href="/styles/site.css" rel="stylesheet">
 		<link rel="stylesheet" href="/styles/waveform-playlist/main.css">
+		<link href="/styles/site.css" rel="stylesheet">
 		<link rel="stylesheet" href="/styles/font-awesome/css/font-awesome.css">
+		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700" rel="stylesheet">
 
 		<script src="/js/jquery/jquery-1.11.3.min.js"></script>
 
@@ -26,8 +27,66 @@
 	</head>
 	<body ng-app="AdaWorshipApp">
 		<div id="header">
-			<div class="container">
-				<div role="navigation" class="navbar navbar-default">
+
+			<div class="aw__header">
+				<div class="row expanded align-middle">
+
+				<div class="small-4 columns">
+<div class="row">
+
+				{{# each leftNavLinks}}
+				<li {{#ifeq ../section key}}class="active"{{else}}{{/ifeq}}>
+					<a href="{{ href }}">{{ label }}</a>
+				</li>
+			{{/each}}
+		</div>
+			</div>
+			<div class="columns grow">
+				<a class="logo" href="/"><img src="/images/logo.svg" /></a>
+			</div>
+			<div class="small-4 columns">
+				<div class="row">
+
+
+				{{# each rightNavLinks}}
+				<li {{#ifeq ../section key}}class="active"{{else}}{{/ifeq}}>
+					<a href="{{ href }}">{{ label }}</a>
+				</li>
+			{{/each}}
+			{{#if user}}
+			<li><a href="/keystone/signout">Sign Out</a></li>
+			{{else}}
+			<li><a href="/keystone/signin">Sign In</a></li>
+			{{/if}}
+			</div>
+		</div>
+			</div>
+			</div>
+			<!-- <div class="top-bar">
+  <div class="top-bar-left">
+    <ul class="dropdown menu" data-dropdown-menu>
+      <li class="menu-text">Ada Worship</li>
+			{{# each navLinks}}
+			<li {{#ifeq ../section key}}class="active"{{else}}{{/ifeq}}>
+				<a href="{{ href }}">{{ label }}</a>
+			</li>
+		{{/each}}
+    </ul>
+  </div>
+  <div class="top-bar-right">
+    <ul class="menu">
+			{{#if user}}
+			<li><a href="/keystone/signout">Sign Out</a></li>
+			{{else}}
+			<li><a href="/keystone/signin">Sign In</a></li>
+			{{/if}}
+    </ul>
+  </div>
+</div> -->
+
+
+			<!-- <div class="container-fluid"> -->
+				<!-- <div role="navigation" class="navbar navbar-default">
 					<div class="container-fluid">
 						<div class="navbar-header">
 							<button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle">
@@ -53,7 +112,7 @@
 							</ul>
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 		<div id="body">
@@ -88,11 +147,11 @@
 			<!-- The content block should contain the body of your template's content-->
 			{{{body}}}
 		</div>
-		<div class="container">
+		<!-- <div class="container">
 			<div id="footer">
 				<p>Powered by <a href="http://keystonejs.com" target="_blank">KeystoneJS</a>.</p>
 			</div>
-		</div>
+		</div> -->
 		{{!--
 			//- jQuery 1.11.3 is included by default, and required by both Bootstrap
 			//- and the KeystoneJS Content Editor. If you are not targeting IE8,
@@ -107,6 +166,8 @@
 		<script type="text/javascript" src="/js/waveform-playlist/waveform-playlist.var.js"></script>
 <script type="text/javascript" src="/js/waveform-playlist/stem-tracks.js"></script>
 <script type="text/javascript" src="/js/waveform-playlist/emitter.js"></script>
+<script src="/js/foundation/vendor/foundation.js"></script>
+<script src="/js/foundation/app.js"></script>
 		{{{isAdminEditorJS user}}}
 	</body>
 </html>

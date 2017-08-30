@@ -12,6 +12,14 @@ var Song = new keystone.List('Song', {
 	drilldown: 'artist'
 });
 
+var myStorage = new keystone.Storage({
+	adapter: keystone.Storage.Adapters.FS,
+	fs: {
+		path: keystone.expandPath('./uploads'), // required; path where the files should be stored
+  		publicPath: '/public/uploads', // path where files will be served
+	}
+});
+
 Song.add({
   title: { type: String, required: true },
   state: { type: Types.Select, options: 'draft, published, archived', default: 'draft', index: true },
@@ -21,7 +29,8 @@ Song.add({
   timeSignature: { type: String },
 	length: { type: String },
 	publishedDate: { type: Types.Date, index: true, dependsOn: { state: 'published' } },
-	image: { type: Types.CloudinaryImage }
+	image: { type: Types.CloudinaryImage },
+	audioFiles: { type: Types.File, storage: myStorage, many: true}
 });
 
 Song.defaultColumns = 'title, artist, keys'

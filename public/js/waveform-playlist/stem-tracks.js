@@ -14,13 +14,13 @@ function loadTracks(title, key, trackList) {
 		timescale: true,
 		state: 'cursor',
 		colors: {
-			waveOutlineColor: '#E0EFF1'
+			waveOutlineColor: '#efefef'
 		},
 		controls: {
 			show: true, //whether or not to include the track controls
 			width: 200 //width of controls in pixels
 		},
-		zoomLevels: [500, 1000, 3000, 12000]
+		zoomLevels: [500, 1000, 3000, 12000],
 	});
 
 	var trackArray = [];
@@ -31,6 +31,7 @@ function loadTracks(title, key, trackList) {
 
 	playlist.load(trackArray).then(function() {
 		setupEmitter();
+		$(".automatic-scroll").click();
 		//can do stuff with the playlist.
 	});
 };

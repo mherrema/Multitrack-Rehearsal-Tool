@@ -1,65 +1,94 @@
-<div class="container">
-	<div class="row">
-		<div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
-			<article>
-				<p><a href="/songs">&larr; back to the songs</a></p>
-				<hr>
-				<header>
-					<h1>{{data.song.title}}</h1>
-					<h5>
-            {{#if data.song.artist}}{{data.song.artist.name}}{{/if}}
-					</h5>
-					<h5>{{#each data.song.keys}}
-						<a href="/songs/{{../data.song.slug}}?key={{name}}">{{name}}</a>
-					{{/each}}</h5>
-				</header>
-				<div class="song">
-					{{#if data.song.image}}<img src="{{{cloudinaryUrl data.song.image width=750 height=450 crop='fit' }}}" class="img-responsive">{{/if}}
-					{{{data.song.content.extended}}}
-				</div>
-			</article>
-		</div>
-	</div>
-	<div class="row">
-		<div class="post-content">
-			<div id="top-bar" class="playlist-top-bar">
-				<div class="playlist-toolbar">
-					<div class="btn-group">
-						<span class="btn-pause btn btn-warning"><i class="fa fa-pause"></i></span>
-						<span class="btn-play btn btn-success"><i class="fa fa-play"></i></span>
-						<span class="btn-stop btn btn-danger"><i class="fa fa-stop"></i></span>
-						<span class="btn-rewind btn btn-success"><i class="fa fa-fast-backward"></i></span>
-						<span class="btn-fast-forward btn btn-success"><i class="fa fa-fast-forward"></i></span>
-					</div>
-					<span class="audio-pos">00:00:00.0</span>
-				</div>
+<div class="row collapse song__header">
+	<div class="small-12 columns">
+		<!-- <p><a href="/songs">&larr; back to the songs</a></p>
+				<hr> -->
+		<div class="row collapse">
+			<div class="small-3 columns song__album-art">
+				{{#if data.song.image.url}}
+					<img src="{{{cloudinaryUrl data.song.image width=750 height=450 crop='fit' }}}" class="img-responsive">
+				{{else}}
+					<img src="/images/album-placeholder.png" class="img" />
+				{{/if}}
+				{{{data.song.content.extended}}}
 			</div>
-			<div id="playlist"></div>
-			<form class="form-inline">
-				<div class="form-group">
-					<label for="master-gain">Master Volume</label>
-					<input type="range" min="0" max="100" value="100" class="master-gain form-control" id="master-gain">
-				</div>
-				<div class="checkbox">
-					<label>
-      <input type="checkbox" class="automatic-scroll" > Automatic Scroll
-    </label>
-				</div>
-			</form>
-			<div class="sound-status"></div>
-			<div class="loading-data"></div>
+			<div class="small-9 columns song__info-container">
+				<h5 class="song__artist">
+	            {{#if data.song.artist}}{{data.song.artist.name}}{{/if}}
+						</h5>
+				<h1 class="song__title">{{data.song.title}}</h1>
+
+			</div>
 		</div>
 	</div>
 </div>
+<div class="row">
+
+
+<ul class="tabs" data-tabs id="song-tabs">
+  <li class="tabs-title is-active"><a data-tabs-target="panel1" aria-selected="true">Multitrack</a></li>
+  <li class="tabs-title"><a data-tabs-target="panel2" >Tutorial Videos</a></li>
+</ul>
+</div>
+<div class="tabs-content" data-tabs-content="song-tabs">
+  <div class="tabs-panel is-active" id="panel1">
+		<div class="row song__tab-container collapse">
+			<div class="small-12 columns">
+				<div id="top-bar" class="playlist-top-bar">
+					<div class="playlist-toolbar">
+						<div class="row collapse align-middle">
+
+							<div class="columns shrink">
+
+
+								<div class="button-group playback-controls">
+									<span class="btn-pause button btn-warning"><i class="fa fa-pause"></i></span>
+									<span class="btn-play button btn-success"><i class="fa fa-play"></i></span>
+									<span class="btn-stop button btn-danger"><i class="fa fa-stop"></i></span>
+									<!-- <span class="btn-rewind button btn-success"><i class="fa fa-fast-backward"></i></span>
+									<span class="btn-fast-forward button btn-success"><i class="fa fa-fast-forward"></i></span> -->
+								</div>
+							</div>
+							<div class="columns song__keys-container">
+								<h6>Keys</h6>
+								<div style="display:flex;">
+								{{#each data.song.keys}}
+									<a href="/songs/{{../data.song.slug}}?key={{name}}" {{#if active}}class="active"{{/if}}>{{name}}</a>
+								{{/each}}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="playlist"></div>
+				<form class="form-inline" style="visibility:hidden;">
+					<div class="checkbox">
+						<label>
+			      <input type="checkbox" class="automatic-scroll" > Automatic Scroll
+			    </label>
+					</div>
+				</form>
+				<!-- <div class="sound-status"></div> -->
+				<!-- <div class="loading-data"></div> -->
+			</div>
+		</div>
+	  </div>
+  <div class="tabs-panel" id="panel2">
+		<div class="row song__tab-container collapse">
+			<div class="small-12 columns">
+				Tutorial videos coming soon
+			</div>
+		</div>
+			  </div>
+</div>
+
+
 
 <script>
-      $(function() {
-				var song = {{{json data.song}}};
-				var trackList = {{{json data.trackList}}};
-				var key = {{{json data.key}}};
-				loadTracks(song.title, key, trackList);
+	$(function() {
+		var song = {{{json data.song}}};
+		var trackList = {{{json data.trackList}}};
+		var key = {{{json data.key}}};
+		loadTracks(song.title, key, trackList);
 
-			});
-    </script>
-
-<!-- <script src="/js/songController.js"></script> -->
+	});
+</script>

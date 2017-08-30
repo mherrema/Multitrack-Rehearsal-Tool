@@ -43,9 +43,22 @@ exports = module.exports = function(req, res) {
 				locals.data.key = locals.filters.key;
 			}
 
-			var path = "public/media/" + locals.data.song.title + " - " + locals.data.song.keys[0].name + "/";
+			for(var i = 0; i < locals.data.song.keys.length; i++){
+				if(locals.data.song.keys[i].name == locals.data.key){
+					locals.data.song.keys[i].active = true;
+				}
+			}
+
+			var path = "public/media/" + locals.data.song.title + " - " + locals.data.key + "/";
 			fs.readdir(path, function(err, items) {
-				locals.data.trackList = items;
+				var audioFiles = [];
+				for(var i = 0; i < items.length; i++){
+					if(items[i].split('.').pop() == "mp3"){
+						audioFiles.push(items[i]);
+					}
+				}
+
+				locals.data.trackList = audioFiles;
 
 				next(err);
 			});

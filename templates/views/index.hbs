@@ -1,15 +1,49 @@
 {{!< default}}
-<div class="container">
-	<div class="jumbotron"><img src="/images/logo.svg" width="160">
-		<h1>Welcome</h1>
-		<h4>Recently Added Songs</h4>
-
-		{{# each data.songs}}
-			<div data-ks-editable="{{#if ../user}}{{adminEditableUrl ../../user _id}}{{/if}}" class="post">
-				<h2><a href="{{songUrl slug}}">{{{title}}}</a></h2>
-				{{#if artist}}<h4>{{artist.name}}</h4>{{/if}}
-				{{#if image}}<img src="{{{cloudinaryUrl image width=160 height=160 crop='fit' }}}" class="img">{{/if}}
-			</div>
-			{{/each}}
+<div class="row expanded collapse">
+	<div class="small-12 columns">
+		<div class="hero hero--home row expanded align-middle">
+			<h1>Welcome to Ada Worship</h1>
+		</div>
 	</div>
 </div>
+<!-- <div class="jumbotron"><img src="/images/logo.svg" width="160">
+		<h1>Welcome</h1>
+		 -->
+
+<div class="home-body">
+	<div class="container">
+		<div class="row song-list">
+			<div class="small-12 columns">
+
+				<h5>Recently Added Songs</h5>
+			</div>
+
+			{{# each data.songs}}
+				<div data-ks-editable="{{#if ../user}}{{adminEditableUrl ../../user _id}}{{/if}}" class="small-6 columns song">
+
+					<div class="row">
+
+					<div class="small-4 columns">
+
+
+					{{#if image}}<img src="{{{cloudinaryUrl image width=160 height=160 crop='fit' }}}" class="img">{{/if}}
+					</div>
+
+					<div class="small-8 columns">
+
+						{{#if artist}}
+							<h4 class="artist">{{artist.name}}</h4>{{/if}}
+					<h2 class="title">{{{title}}}</h2>
+					<a href="{{songUrl slug}}" class="button hollow">Learn</a>
+							</div>
+
+</div>
+
+
+				</div>
+				{{/each}}
+		</div>
+	</div>
+</div>
+
+<!-- </div> -->
