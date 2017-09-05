@@ -33,6 +33,7 @@
   <div class="tabs-panel is-active" id="panel1">
 		<div class="row song__tab-container collapse">
 			<div class="small-12 columns">
+				<h2>new</h2>
 				<div id="top-bar" class="playlist-top-bar">
 					<div class="playlist-toolbar">
 						<div class="row collapse align-middle">
@@ -44,9 +45,7 @@
 									<span class="btn-pause button btn-warning"><i class="fa fa-pause"></i></span>
 									<span class="btn-play button btn-success"><i class="fa fa-play"></i></span>
 									<span class="btn-stop button btn-danger"><i class="fa fa-stop"></i></span>
-									<!-- <span class="btn-rewind button btn-success"><i class="fa fa-fast-backward"></i></span>
-									<span class="btn-fast-forward button btn-success"><i class="fa fa-fast-forward"></i></span> -->
-								</div>
+									</div>
 							</div>
 							<div class="columns song__keys-container">
 								<h6>Keys</h6>
@@ -59,7 +58,7 @@
 						</div>
 					</div>
 				</div>
-				<div id="playlist"></div>
+				<!-- <div id="playlist"></div> -->
 				<form class="form-inline" style="visibility:hidden;">
 					<div class="checkbox">
 						<label>
@@ -76,6 +75,9 @@
 		<div class="row song__tab-container collapse">
 			<div class="small-12 columns">
 				Tutorial videos coming soon
+
+				<button onclick="playSound();" class="playSound">Play Sound</button>
+
 			</div>
 		</div>
 			  </div>
@@ -84,11 +86,31 @@
 
 
 <script>
+var soundID = "Thunder";
+function playSound () {
+	createjs.Sound.play("Cue");
+	createjs.Sound.play("Drums");
+	createjs.Sound.play("Rhythm");
+	createjs.Sound.play("Lead");
+	createjs.Sound.play("Keys");
+	createjs.Sound.play(soundID);
+	createjs.Sound.play("Synth Bass");
+  createjs.Sound.play("Vocal");
+}
+
 	$(function() {
 		var song = {{{json data.song}}};
 		var trackList = {{{json data.trackList}}};
 		var key = {{{json data.key}}};
 		loadTracks(song.title, key, trackList);
 
+		createjs.Sound.registerSound("/media/Close - E/02 Cue.mp3", "Cue");
+		createjs.Sound.registerSound("/media/Close - E/03 Drums.mp3", "Drums");
+		createjs.Sound.registerSound("/media/Close - E/06 Rhythm ELEC.mp3", "Rhythm");
+		createjs.Sound.registerSound("/media/Close - E/07 Lead ELEC.mp3", "Lead");
+		createjs.Sound.registerSound("/media/Close - E/08 Live Keys.mp3", "Keys");
+		createjs.Sound.registerSound("/media/Close - E/09 Tracks.mp3", soundID);
+		createjs.Sound.registerSound("/media/Close - E/10 Synth Bass.mp3", "Synth Bass");
+		createjs.Sound.registerSound("/media/Close - E/13 Lead Vocal.mp3", "Vocal");
 	});
 </script>

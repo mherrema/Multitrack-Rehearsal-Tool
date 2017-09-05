@@ -26,8 +26,12 @@
 					<div class="small-4 columns">
 
 
-					{{#if image}}<img src="{{{cloudinaryUrl image width=160 height=160 crop='fit' }}}" class="img">{{/if}}
-					</div>
+						{{#if image.url}}
+						<img src="{{{cloudinaryUrl image width=160 height=160 crop='fit' }}}" class="img">
+						{{else}}
+						<img src="/images/album-placeholder.png" class="img" />
+						{{/if}}
+										</div>
 
 					<div class="small-8 columns">
 
