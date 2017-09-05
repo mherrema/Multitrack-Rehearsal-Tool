@@ -52,11 +52,16 @@ exports = module.exports = function(req, res) {
 			var path = "public/media/" + locals.data.song.title + " - " + locals.data.key + "/";
 			fs.readdir(path, function(err, items) {
 				var audioFiles = [];
+				if(items){
 				for(var i = 0; i < items.length; i++){
 					if(items[i].split('.').pop() == "mp3"){
 						audioFiles.push(items[i]);
 					}
 				}
+			}
+			else {
+				console.log(err);
+			}
 
 				locals.data.trackList = audioFiles;
 
