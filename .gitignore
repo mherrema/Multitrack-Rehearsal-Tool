@@ -32,4 +32,4 @@ node_modules
 
 public/media
 
-updates/
+#updates/
