@@ -57,6 +57,7 @@ exports = module.exports = function(req, res) {
 					console.log("found list of items");
 				for(var i = 0; i < items.length; i++){
 					if(items[i].split('.').pop() == "mp3"){
+						console.log("adding audio file: " + items[i]);
 						audioFiles.push(items[i]);
 					}
 				}
