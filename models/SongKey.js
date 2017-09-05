@@ -8,7 +8,7 @@ var keystone = require('keystone');
 var SongKey = new keystone.List('SongKey', {
 	autokey: { from: 'name', path: 'key', unique: true },
   defaultSort: 'name',
-	hidden: true,
+	// hidden: true,
 });
 
 SongKey.add({
