@@ -50,9 +50,11 @@ exports = module.exports = function(req, res) {
 			}
 
 			var path = "public/media/" + locals.data.song.title + " - " + locals.data.key + "/";
+			console.log("Media path: " + path);
 			fs.readdir(path, function(err, items) {
 				var audioFiles = [];
 				if(items){
+					console.log("found list of items");
 				for(var i = 0; i < items.length; i++){
 					if(items[i].split('.').pop() == "mp3"){
 						audioFiles.push(items[i]);
@@ -60,6 +62,7 @@ exports = module.exports = function(req, res) {
 				}
 			}
 			else {
+				console.log("could not find list of items");
 				console.log(err);
 			}
 
