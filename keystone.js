@@ -28,7 +28,7 @@ keystone.init({
 		extname: '.hbs',
 	}).engine,
 
-	'auto update': false,
+	'auto update': true,
 	'session': true,
 	'auth': true,
 	'user model': 'User',
