@@ -85,6 +85,16 @@
 	}
 }
 
+.playlist__loading{
+	h4{
+		text-align: center;
+	}
+	.fa{
+		display: block;
+		margin: 0 auto;
+	}
+}
+
 .playlist {
 	.controls {
 		header {
@@ -190,6 +200,7 @@
 	.playlist-time-scale {
 		.time {
 			font-family: montserrat;
+			font-size: 14px;
 		}
 	}
 }

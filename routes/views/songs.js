@@ -65,7 +65,7 @@ exports = module.exports = function (req, res) {
 				state: 'published',
 			},
 		})
-			.sort('-publishedDate')
+			.sort('title')
 			.populate('artist keys');
 
 		if (locals.data.artist) {

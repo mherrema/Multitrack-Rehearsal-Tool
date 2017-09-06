@@ -32,6 +32,7 @@ function loadTracks(title, key, trackList) {
 	playlist.load(trackArray).then(function() {
 		setupEmitter();
 		$(".automatic-scroll").click();
+		$(".playlist__loading").css("display", "none");
 		//can do stuff with the playlist.
 	});
 };

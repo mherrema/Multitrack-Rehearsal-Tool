@@ -5543,7 +5543,7 @@ h5 {
     flex-direction: column; }
   .song-list .song .artist {
     font-weight: 700;
-    font-size: 10px;
+    font-size: 11px;
     color: #989898;
     letter-spacing: 3px;
     text-transform: uppercase;
@@ -5619,6 +5619,13 @@ h5 {
     .playlist-top-bar .playlist-toolbar .song__keys-container a.active {
       color: #333;
       border: 1px solid #333; }
+
+.playlist__loading h4 {
+  text-align: center; }
+
+.playlist__loading .fa {
+  display: block;
+  margin: 0 auto; }
 
 .playlist .controls header {
   background-color: #333;
@@ -5701,7 +5708,8 @@ h5 {
   background: #EFEFEF; }
 
 .playlist .playlist-time-scale .time {
-  font-family: montserrat; }
+  font-family: montserrat;
+  font-size: 14px; }
 
 .tabs-content {
   border: none; }
