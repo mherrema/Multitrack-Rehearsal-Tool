@@ -77,7 +77,25 @@
   <div class="tabs-panel" id="panel2">
 		<div class="row song__tab-container collapse">
 			<div class="small-12 columns">
-				Tutorial videos coming soon
+				<div class="row">
+				<div class="columns song__keys-container">
+					<h6>Keys</h6>
+					<div style="display:flex;">
+					{{#each data.song.keys}}
+						<a href="/songs/{{../data.song.slug}}?key={{name}}" {{#if active}}class="active"{{/if}}>{{name}}</a>
+					{{/each}}
+					</div>
+				</div>
+				</div>
+				<div class="row tutorial-video__container">
+				{{#each data.videos}}
+				<div class="small-6 columns">
+					<div class="videoWrapper">
+					<iframe width="560" height="315" src="//www.youtube.com/embed/{{videoUrl}}" frameborder="0" allowfullscreen></iframe>
+				</div>
+				</div>
+				{{/each}}
+				</div>
 			</div>
 		</div>
 			  </div>

@@ -58,6 +58,7 @@ TutorialVideo.add({
 			state: 'published'
 		}
 	},
+	keys: { type: Types.Relationship, ref: 'SongKey', index: true, many: true },
 });
 
 // TutorialVideo.schema.pre('save', function (next) {

@@ -5562,6 +5562,19 @@ h5 {
     font-size: 12px;
     letter-spacing: 0; }
 
+.videoWrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  /* 16:9 */
+  padding-top: 25px;
+  height: 0; }
+  .videoWrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; }
+
 .song__header {
   padding: 2em 0; }
   .song__header .song__album-art img {
@@ -5594,16 +5607,16 @@ h5 {
     border-radius: 0;
     padding: 1em; }
 
-.playlist-top-bar .playlist-toolbar .song__keys-container {
-  padding-left: 1em; }
-  .playlist-top-bar .playlist-toolbar .song__keys-container h6 {
+.song__keys-container {
+  padding-left: 1em !important; }
+  .song__keys-container h6 {
     font-weight: 700;
     margin-bottom: 0;
     font-size: 10px;
     color: #333333;
     letter-spacing: 1.96px;
     text-transform: uppercase; }
-  .playlist-top-bar .playlist-toolbar .song__keys-container a {
+  .song__keys-container a {
     font-size: 16px;
     background-color: #D8D8D8;
     color: #7F7F7F;
@@ -5616,7 +5629,7 @@ h5 {
     align-items: center;
     justify-content: center;
     margin-right: 0.5em; }
-    .playlist-top-bar .playlist-toolbar .song__keys-container a.active {
+    .song__keys-container a.active {
       color: #333;
       border: 1px solid #333; }
 
@@ -5728,6 +5741,9 @@ h5 {
   .tabs .tabs-title > a:focus, .tabs .tabs-title > a[aria-selected='true'] {
     background: #FAFAFA;
     color: #333; }
+
+.tutorial-video__container {
+  padding-top: 1em; }
 
 .displaynone {
   display: none; }
