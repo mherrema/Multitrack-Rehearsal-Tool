@@ -53,6 +53,9 @@
 					<a href="{{ href }}">{{ label }}</a>
 				</li>
 			{{/each}}
+			{{#if (hasRightsToAuditions user)}}
+			<li><a href="/auditions">Auditions</a></li>
+			{{/if}}
 			{{#if user}}
 			<li><a href="/keystone/signout">Sign Out</a></li>
 			{{else}}

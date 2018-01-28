@@ -1,12 +1,12 @@
-<div class="row top-pad">
+<div class="row collapse top-pad">
 	<div class="small-12 columns">
 		<h4>All Songs</h4>
 		<!-- <h4 class="text-weight-normal">Showing {{ data.songs.results.length}} song.</h4> -->
-		<div class="row song-list">
+		<div class="row collapse song-list">
 			{{# each data.songs.results}}
 				<div data-ks-editable="{{#if ../user}}{{adminEditableUrl ../../user _id}}{{/if}}" class="small-6 columns song">
 
-					<div class="row">
+					<div class="row collapse">
 
 						<div class="small-4 columns">
 
@@ -17,8 +17,7 @@
 							{{/if}}
 						</div>
 
-						<div class="small-8 columns">
-
+						<div class="small-8 columns song__info-container">
 							{{#if artist}}
 								<h4 class="artist">{{artist.name}}</h4>{{/if}}
 							<h2 class="title">{{{title}}}</h2>

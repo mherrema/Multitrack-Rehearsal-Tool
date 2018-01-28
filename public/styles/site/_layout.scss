@@ -1,7 +1,7 @@
 #header {
 	// margin-top: 30px;
 	position: relative;
-	z-index: 1;
+	z-index: 2;
 }
 
 .aw__header {
@@ -25,6 +25,7 @@
 		&:hover{
 			a{
 				color: #fff;
+				text-decoration: none;
 			}
 		}
 
@@ -99,33 +100,53 @@ h6 {
 	font-family: Montserrat, sans-serif;
 }
 
-h5 {
+h5, h6 {
 	text-transform: uppercase;
+}
+
+h6{
+	font-weight: 600;
+}
+
+body, p{
+	font-family: roboto;
 }
 
 .hero {
 	min-height: 400px;
 	position: relative;
 	z-index: 0;
+	overflow: hidden;
 
-	&.hero--home {
+	&.hero--1, &.hero--2{
+		&:before{
+		position: absolute;
+		z-index: 1;
+		top: 0;
+		left: 0;
+		display: block;
+		width: 100%;
+		height: 100%;
+		content: '';
+		-webkit-transform: translate3d(0, 0, 0);
+		-webkit-transform: scale(1.1);
+		-ms-transform: scale(1.1);
+		transform: scale(1.1);
+		background-size: cover;
+		background-position: center center;
+		-webkit-filter: blur(8px);
+	}
+	}
+
+	&.hero--1 {
 		&:before {
-			position: absolute;
-			z-index: 1;
-			top: 0;
-			left: 0;
-			display: block;
-			width: 100%;
-			height: 100%;
-			content: '';
-			-webkit-transform: translate3d(0, 0, 0);
-			-webkit-transform: scale(1.1);
-			-ms-transform: scale(1.1);
-			transform: scale(1.1);
 			background-image: url("/images/hero-bg.jpg");
-			background-size: cover;
-			background-position: center center;
-			-webkit-filter: blur(8px);
+		}
+	}
+
+	&.hero--2{
+		&:before {
+			background-image: url("/images/hero-bg-2.jpg");
 		}
 	}
 
@@ -155,9 +176,14 @@ h5 {
 		}
 
 		.song__info-container {
-			display: flex;
-			justify-content: center;
-			flex-direction: column;
+			padding-left: 1em !important;
+			.button{
+				&:hover{
+						background: #eee;
+					// transform: translateY(-1px);
+					// box-shadow: 0 7px 14px rgba(50,50,93,.07), 0 3px 6px rgba(0,0,0,.05);
+				}
+			}
 		}
 
 		.artist {
@@ -192,6 +218,25 @@ h5 {
 	}
 }
 
+.button {
+	border-radius: 0;
+	font-family: montserrat, sans-serif;
+	text-transform: uppercase;
+	font-size: 12px;
+	letter-spacing: 0;
+	background: black;
+	color: white;
+	transition: all 0.2s ease;
+	&:hover{
+		background: #333;
+	}
+	&.hollow {
+		color: black;
+		border-color: black;
+		background: transparent;
+	}
+}
+
 .videoWrapper {
 	position: relative;
 	padding-bottom: 56.25%; /* 16:9 */
@@ -203,5 +248,41 @@ h5 {
 		left: 0;
 		width: 100%;
 		height: 100%;
+	}
+}
+
+.instrument-tabs-content{
+	background: #fafafa;
+padding: 2em;
+// margin-bottom: 2em;
+}
+
+.auditions{
+	.row{
+		padding-bottom: 2em;
+	}
+}
+
+a{
+	color: black;
+	font-weight: 600;
+	transition: all 0.2s ease;
+	&:hover{
+		color: #333;
+		text-decoration: underline;
+	}
+	// text-decoration: underline;
+}
+
+.pdf-wrapper{
+    position: relative;
+		padding-bottom: 48%;
+    width: 300px;
+    height: 0;
+}
+
+.tabs > li, .tabs > li > a{
+	&:focus{
+		outline: none;
 	}
 }

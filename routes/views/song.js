@@ -14,7 +14,8 @@ exports = module.exports = function(req, res) {
 	};
 	locals.data = {
 		songs: [],
-		key: ""
+		key: "",
+		videos: []
 	};
 
 	function getId(url) {
@@ -28,7 +29,7 @@ exports = module.exports = function(req, res) {
 		}
 	}
 
-	console.log(locals.filters);
+	// console.log(locals.filters);
 
 	// Load the current song
 	view.on('init', function(next) {
@@ -41,14 +42,14 @@ exports = module.exports = function(req, res) {
 			locals.data.song = result;
 
 			if (!locals.filters.key) {
-				console.log("not using key filter");
+				// console.log("not using key filter");
 				if (locals.data.song.keys) {
 					locals.data.key = locals.data.song.keys[0].name;
 				} else {
 					locals.data.key = "A";
 				}
 			} else {
-				console.log("using key filter");
+				// console.log("using key filter");
 				locals.data.key = locals.filters.key;
 			}
 
@@ -72,10 +73,12 @@ exports = module.exports = function(req, res) {
 					}
 				} else {
 					console.log("could not find list of items");
-					console.log(err);
+					// console.log(err);
 				}
 
 				locals.data.trackList = audioFiles;
+
+				var resultCount = 0;
 
 				var s = keystone.list('SongKey').model.findOne({
 					name: locals.data.key
@@ -83,25 +86,46 @@ exports = module.exports = function(req, res) {
 
 				s.exec(function(err, key) {
 					var r = keystone.list('TutorialVideo').model.find({
-						state: 'published',
-						song: locals.data.song.id
-					}).where('keys').in([key.id])
-					.populate('artist keys');
+							state: 'published',
+							song: locals.data.song.id
+						}).where('keys').in([key.id])
+						.populate('artist keys');
 
 					r.exec(function(err, result) {
-						console.log(result);
-						for(var i = 0; i < result.length; i++){
+						// console.log(result);
+						for (var i = 0; i < result.length; i++) {
 							result[i].videoUrl = getId(result[i].videoUrl);
 							// result[i].videoUrl = '<iframe width="560" height="315" src="//www.youtube.com/embed/' +
 							// 	videoId + '" frameborder="0" allowfullscreen></iframe>';
-								// console.log(result[i]);
+							// console.log(result[i]);
 
 						}
 
 						locals.data.videos = result;
-						console.log(locals.data.videos);
+						// console.log(locals.data.videos);
+						resultCount++;
+						if (resultCount == 2) {
+							next(err);
+						}
+					});
 
-						next(err);
+					console.log(key);
+					var c = keystone.list('Chord Chart').model.find({
+							state: 'published',
+							song: locals.data.song.id
+						}).where('keys').in([key.id])
+						.populate('artist keys');
+
+					c.exec(function(err, result) {
+						console.log("got chord chart");
+						console.log(result);
+						locals.data.song.chordChart = result;
+						// console.log(locals.data.videos);
+
+						resultCount++;
+						if (resultCount == 2) {
+							next(err);
+						}
 					});
 				});
 

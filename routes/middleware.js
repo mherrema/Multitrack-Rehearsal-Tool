@@ -25,6 +25,7 @@ exports.initLocals = function (req, res, next) {
 	res.locals.rightNavLinks = [
 		// { label: 'Home', key: 'home', href: '/' },
 		// { label: 'Blog', key: 'blog', href: '/blog' },
+		// {label: 'Auditions', key: 'auditions', href: '/auditions'}
 	];
 	res.locals.user = req.user;
 	next();
@@ -51,6 +52,24 @@ exports.flashMessages = function (req, res, next) {
  */
 exports.requireUser = function (req, res, next) {
 	if (!req.user) {
+		req.flash('error', 'Please sign in to access this page.');
+		res.redirect('/keystone/signin');
+	} else {
+		next();
+	}
+};
+
+exports.requireNonAuditionUser = function (req, res, next) {
+	if (!req.user || req.user.isAuditionUser) {
+		req.flash('error', 'Please sign in to access this page.');
+		res.redirect('/keystone/signin');
+	} else {
+		next();
+	}
+};
+
+exports.requireAuditionUser = function (req, res, next) {
+	if (!req.user || (!req.user.isAuditionUser && !req.user.isAdmin)) {
 		req.flash('error', 'Please sign in to access this page.');
 		res.redirect('/keystone/signin');
 	} else {

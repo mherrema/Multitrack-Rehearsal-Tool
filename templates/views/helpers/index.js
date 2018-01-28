@@ -9,7 +9,7 @@ var linkTemplate = _.template('<a href="<%= url %>"><%= text %></a>');
 var scriptTemplate = _.template('<script src="<%= src %>"></script>');
 var cssLinkTemplate = _.template('<link href="<%= href %>" rel="stylesheet">');
 
-module.exports = function () {
+module.exports = function() {
 
 	var _helpers = {};
 
@@ -20,7 +20,7 @@ module.exports = function () {
 
 	// standard hbs equality check, pass in two values from template
 	// {{#ifeq keyToCheck data.myKey}} [requires an else blockin template regardless]
-	_helpers.ifeq = function (a, b, options) {
+	_helpers.ifeq = function(a, b, options) {
 		if (a == b) { // eslint-disable-line eqeqeq
 			return options.fn(this);
 		} else {
@@ -49,7 +49,7 @@ module.exports = function () {
 	// Options is the formatting and context check this.publishedDate
 	// If it exists then it is formated, otherwise current timestamp returned
 
-	_helpers.date = function (context, options) {
+	_helpers.date = function(context, options) {
 		if (!options && context.hasOwnProperty('hash')) {
 			options = context;
 			context = undefined;
@@ -88,18 +88,18 @@ module.exports = function () {
 	// input. categories:['tech', 'js']
 	// output. 'Filed Undder <a href="blog/tech">tech</a>, <a href="blog/js">js</a>'
 
-	_helpers.categoryList = function (categories, options) {
+	_helpers.categoryList = function(categories, options) {
 		var autolink = _.isString(options.hash.autolink) && options.hash.autolink === 'false' ? false : true;
 		var separator = _.isString(options.hash.separator) ? options.hash.separator : ', ';
 		var prefix = _.isString(options.hash.prefix) ? options.hash.prefix : '';
 		var suffix = _.isString(options.hash.suffix) ? options.hash.suffix : '';
 		var output = '';
 
-		function createTagList (tags) {
+		function createTagList(tags) {
 			var tagNames = _.map(tags, 'name');
 
 			if (autolink) {
-				return _.map(tags, function (tag) {
+				return _.map(tags, function(tag) {
 					return linkTemplate({
 						url: ('/blog/' + tag.key),
 						text: _.escape(tag.name),
@@ -121,9 +121,9 @@ module.exports = function () {
 	 */
 
 	// block rendering for keystone admin css
-	_helpers.isAdminEditorCSS = function (user, options) {
+	_helpers.isAdminEditorCSS = function(user, options) {
 		var output = '';
-		if (typeof (user) !== 'undefined' && user.isAdmin) {
+		if (typeof(user) !== 'undefined' && user.isAdmin) {
 			output = cssLinkTemplate({
 				href: '/keystone/styles/content/editor.min.css',
 			});
@@ -132,9 +132,9 @@ module.exports = function () {
 	};
 
 	// block rendering for keystone admin js
-	_helpers.isAdminEditorJS = function (user, options) {
+	_helpers.isAdminEditorJS = function(user, options) {
 		var output = '';
-		if (typeof (user) !== 'undefined' && user.isAdmin) {
+		if (typeof(user) !== 'undefined' && user.isAdmin) {
 			output = scriptTemplate({
 				src: '/keystone/js/content/editor.js',
 			});
@@ -143,7 +143,7 @@ module.exports = function () {
 	};
 
 	// Used to generate the link for the admin edit post button
-	_helpers.adminEditableUrl = function (user, options) {
+	_helpers.adminEditableUrl = function(user, options) {
 		var rtn = keystone.app.locals.editable(user, {
 			list: 'Post',
 			id: options,
@@ -161,7 +161,7 @@ module.exports = function () {
 	//
 	// Returns an src-string for a cloudinary image
 
-	_helpers.cloudinaryUrl = function (context, options) {
+	_helpers.cloudinaryUrl = function(context, options) {
 
 		// if we dont pass in a context and just kwargs
 		// then `this` refers to our default scope block and kwargs
@@ -180,8 +180,7 @@ module.exports = function () {
 			options.hash.secure = keystone.get('cloudinary secure') || false;
 			var imageName = context.public_id.concat('.', context.format);
 			return cloudinary.url(imageName, options.hash);
-		}
-		else {
+		} else {
 			return null;
 		}
 	};
@@ -192,28 +191,28 @@ module.exports = function () {
 	// the routes by keynames to reduce the maintenance of changing urls
 
 	// Direct url link to a specific post
-	_helpers.postUrl = function (postSlug, options) {
+	_helpers.postUrl = function(postSlug, options) {
 		return ('/blog/post/' + postSlug);
 	};
 
 	// Direct url link to a specific post
-	_helpers.songUrl = function (postSlug, options) {
+	_helpers.songUrl = function(postSlug, options) {
 		return ('/songs/' + postSlug);
 	};
 
 	// Direct url link to a specific post
-	_helpers.artistUrl = function (postSlug, options) {
+	_helpers.artistUrl = function(postSlug, options) {
 		return ('/songs?artist=' + postSlug);
 	};
 
 	// might be a ghost helper
 	// used for pagination urls on blog
-	_helpers.pageUrl = function (pageNumber, options) {
+	_helpers.pageUrl = function(pageNumber, options) {
 		return '/blog?page=' + pageNumber;
 	};
 
 	// create the category url for a blog-category page
-	_helpers.categoryUrl = function (categorySlug, options) {
+	_helpers.categoryUrl = function(categorySlug, options) {
 		return ('/blog/' + categorySlug);
 	};
 
@@ -222,10 +221,10 @@ module.exports = function () {
 	// Mostly generalized and with a small adjust to `_helper.pageUrl` could be universal for content types
 
 	/*
-	* expecting the data.posts context or an object literal that has `previous` and `next` properties
-	* ifBlock helpers in hbs - http://stackoverflow.com/questions/8554517/handlerbars-js-using-an-helper-function-in-a-if-statement
-	* */
-	_helpers.ifHasPagination = function (postContext, options) {
+	 * expecting the data.posts context or an object literal that has `previous` and `next` properties
+	 * ifBlock helpers in hbs - http://stackoverflow.com/questions/8554517/handlerbars-js-using-an-helper-function-in-a-if-statement
+	 * */
+	_helpers.ifHasPagination = function(postContext, options) {
 		// if implementor fails to scope properly or has an empty data set
 		// better to display else block than throw an exception for undefined
 		if (_.isUndefined(postContext)) {
@@ -237,12 +236,12 @@ module.exports = function () {
 		return options.inverse(this);
 	};
 
-	_helpers.paginationNavigation = function (pages, currentPage, totalPages, options) {
+	_helpers.paginationNavigation = function(pages, currentPage, totalPages, options) {
 		var html = '';
 
 		// pages should be an array ex.  [1,2,3,4,5,6,7,8,9,10, '....']
 		// '...' will be added by keystone if the pages exceed 10
-		_.each(pages, function (page, ctr) {
+		_.each(pages, function(page, ctr) {
 			// create ref to page, so that '...' is displayed as text even though int value is required
 			var pageText = page;
 			// create boolean flag state if currentPage
@@ -259,14 +258,17 @@ module.exports = function () {
 			// get the pageUrl using the integer value
 			var pageUrl = _helpers.pageUrl(page);
 			// wrapup the html
-			html += '<li' + liClass + '>' + linkTemplate({ url: pageUrl, text: pageText }) + '</li>\n';
+			html += '<li' + liClass + '>' + linkTemplate({
+				url: pageUrl,
+				text: pageText
+			}) + '</li>\n';
 		});
 		return html;
 	};
 
 	// special helper to ensure that we always have a valid page url set even if
 	// the link is disabled, will default to page 1
-	_helpers.paginationPreviousUrl = function (previousPage, totalPages) {
+	_helpers.paginationPreviousUrl = function(previousPage, totalPages) {
 		if (previousPage === false) {
 			previousPage = 1;
 		}
@@ -275,7 +277,7 @@ module.exports = function () {
 
 	// special helper to ensure that we always have a valid next page url set
 	// even if the link is disabled, will default to totalPages
-	_helpers.paginationNextUrl = function (nextPage, totalPages) {
+	_helpers.paginationNextUrl = function(nextPage, totalPages) {
 		if (nextPage === false) {
 			nextPage = totalPages;
 		}
@@ -298,7 +300,7 @@ module.exports = function () {
 	//      </div>
 	//   {{/if}}`
 
-	_helpers.flashMessages = function (messages) {
+	_helpers.flashMessages = function(messages) {
 		var output = '';
 		for (var i = 0; i < messages.length; i++) {
 
@@ -332,8 +334,17 @@ module.exports = function () {
 	//  *Usage example:*
 	//  `{{underscoreFormat enquiry 'enquiryType'}}
 
-	_helpers.underscoreFormat = function (obj, underscoreMethod) {
+	_helpers.underscoreFormat = function(obj, underscoreMethod) {
 		return obj._[underscoreMethod].format();
+	};
+
+	_helpers.hasRightsToAuditions = function(user) {
+		if (user) {
+			return (user.isAdmin || user.isAuditionUser);
+		}
+		else{
+			return false;
+		}
 	};
 
 	return _helpers;

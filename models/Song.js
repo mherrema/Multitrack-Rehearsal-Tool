@@ -29,10 +29,23 @@ Song.add({
   timeSignature: { type: String },
 	length: { type: String },
 	publishedDate: { type: Types.Date, index: true, dependsOn: { state: 'published' } },
-	image: { type: Types.CloudinaryImage },
-	audioFiles: { type: Types.File, storage: myStorage, many: true}
+	image: { type: Types.CloudinaryImage }
 });
 
 Song.defaultColumns = 'title, artist, keys'
+
+Song.schema.pre('save', function(next) {
+  var mySong = this,
+      err;
+
+  //debug('saving Song:', mySong);
+  if (mySong.state === 'published') {
+    if (!mySong.publishedDate) {
+      err = new Error('Cannot publish a song without a published date.');
+      next(err);
+    }
+  }
+  next();
+});
 
 Song.register();

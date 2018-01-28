@@ -1,9 +1,16 @@
+<!-- <div class="row collapse top-pad">
+	<div class="small-12 columns">
+<div class="breadcrumb">
+	<a href="/songs">< Back to Songs</a>
+</div>
+</div>
+</div> -->
 <div class="row collapse song__header">
 	<div class="small-12 columns">
 		<!-- <p><a href="/songs">&larr; back to the songs</a></p>
 				<hr> -->
 		<div class="row collapse">
-			<div class="small-3 columns song__album-art">
+			<div class="small-2 columns song__album-art">
 				{{#if data.song.image.url}}
 					<img src="{{{cloudinaryUrl data.song.image width=750 height=450 crop='fit' }}}" class="img-responsive">
 				{{else}}
@@ -11,7 +18,7 @@
 				{{/if}}
 				{{{data.song.content.extended}}}
 			</div>
-			<div class="small-9 columns song__info-container">
+			<div class="small-10 columns song__info-container">
 				<h5 class="song__artist">
 	            {{#if data.song.artist}}{{data.song.artist.name}}{{/if}}
 						</h5>
@@ -26,7 +33,8 @@
 
 <ul class="tabs" data-tabs id="song-tabs">
   <li class="tabs-title is-active"><a data-tabs-target="panel1" aria-selected="true">Multitrack</a></li>
-  <li class="tabs-title"><a data-tabs-target="panel2" >Tutorial Videos</a></li>
+	{{#if data.videos}}<li class="tabs-title"><a data-tabs-target="panel2" >Tutorial Videos</a></li>{{/if}}
+  {{#if data.song.chordChart}}<li class="tabs-title"><a data-tabs-target="panel3" >Chart</a></li>{{/if}}
 </ul>
 </div>
 <div class="tabs-content" data-tabs-content="song-tabs">
@@ -99,6 +107,37 @@
 			</div>
 		</div>
 			  </div>
+
+				<div class="tabs-panel" id="panel3">
+					<div class="row song__tab-container collapse">
+						<div class="small-12 columns">
+							<div class="row">
+							<div class="columns song__keys-container">
+								<h6>Keys</h6>
+								<div style="display:flex;">
+								{{#each data.song.keys}}
+									<a href="/songs/{{../data.song.slug}}?key={{name}}" {{#if active}}class="active"{{/if}}>{{name}}</a>
+								{{/each}}
+								</div>
+							</div>
+							</div>
+							<div class="row">
+								<div class="small-6 medium-4">
+								{{#each data.song.chordChart}}
+								<!-- <img src="{{{cloudinaryUrl image width=450 height=750 crop='fit' }}}" class="img-responsive"> -->
+								<img src="{{{image.url}}}" class="img-responsive song__chart">
+
+								{{/each}}
+								</div>
+
+
+
+
+								</div>
+							</div>
+						</div>
+					</div>
+						  </div>
 </div>
 
 

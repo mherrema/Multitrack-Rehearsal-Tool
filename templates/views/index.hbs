@@ -1,7 +1,7 @@
 {{!< default}}
 <div class="row expanded collapse">
 	<div class="small-12 columns">
-		<div class="hero hero--home row expanded align-middle">
+		<div class="hero hero--1 row expanded align-middle">
 			<h1>Welcome to Ada Worship</h1>
 		</div>
 	</div>
@@ -12,16 +12,17 @@
 
 <div class="home-body">
 	<div class="container">
-		<div class="row song-list">
+		<div class="row collapse song-list">
 			<div class="small-12 columns">
-
+				{{#if user.isNotAuditionUser}}
 				<h5>Recently Added Songs</h5>
+				{{/if}}
 			</div>
 
 			{{# each data.songs}}
 				<div data-ks-editable="{{#if ../user}}{{adminEditableUrl ../../user _id}}{{/if}}" class="small-6 columns song">
 
-					<div class="row">
+					<div class="row collapse">
 
 					<div class="small-4 columns">
 
@@ -33,7 +34,7 @@
 						{{/if}}
 										</div>
 
-					<div class="small-8 columns">
+					<div class="small-8 columns song__info-container">
 
 						{{#if artist}}
 							<h4 class="artist">{{artist.name}}</h4>{{/if}}

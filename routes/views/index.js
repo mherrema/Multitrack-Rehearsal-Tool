@@ -18,20 +18,26 @@ exports = module.exports = function(req, res) {
 	// Load the songs
 	view.on('init', function(next) {
 
-var Song = keystone.list('Song');
+			if (req.user && !req.user.isAuditionUser) {
+				req.user.isNotAuditionUser = true;
 
-Song.model.find()
-    .where('state', 'published')
-		.sort('-publishedDate')
-		.populate('artist')
-    .limit(5)
-    .exec(function(err, songs) {
-        locals.data.songs = songs;
-				next(err);
-    });
-	});
+				var Song = keystone.list('Song');
 
+				Song.model.find()
+					.where('state', 'published')
+					.sort('-publishedDate')
+					.populate('artist')
+					.limit(6)
+					.exec(function(err, songs) {
+						locals.data.songs = songs;
+						next(err);
+					});
 
+				}
+				else{
+					next("User not authorized");
+				}
+			});
 
 
 
