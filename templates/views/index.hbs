@@ -13,14 +13,14 @@
 <div class="home-body">
 	<div class="container">
 		<div class="row collapse song-list">
-			<div class="small-12 columns">
+			<div class="small-10 small-offset-1 medium-12 medium-offset-0 columns">
 				{{#if user.isNotAuditionUser}}
 				<h5>Recently Added Songs</h5>
 				{{/if}}
 			</div>
 
 			{{# each data.songs}}
-				<div data-ks-editable="{{#if ../user}}{{adminEditableUrl ../../user _id}}{{/if}}" class="small-6 columns song">
+				<div data-ks-editable="{{#if ../user}}{{adminEditableUrl ../../user _id}}{{/if}}" class="small-10 small-offset-1 medium-6 medium-offset-0 columns song">
 
 					<div class="row collapse">
 
