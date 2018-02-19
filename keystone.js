@@ -61,6 +61,7 @@ keystone.set('nav', {
 
 keystone.set('signin logo', '../images/logo.svg');
 
+
 // Start Keystone to connect to your database and initialise the web server
 
 

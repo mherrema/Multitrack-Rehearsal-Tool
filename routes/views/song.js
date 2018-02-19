@@ -40,10 +40,10 @@ exports = module.exports = function(req, res) {
 
 		q.exec(function(err, result) {
 			locals.data.song = result;
-
+			var s = result;
 			if (!locals.filters.key) {
 				// console.log("not using key filter");
-				if (locals.data.song.keys) {
+				if (locals.data.song.keys && locals.data.song.length) {
 					locals.data.key = locals.data.song.keys[0].name;
 				} else {
 					locals.data.key = "A";
@@ -59,24 +59,39 @@ exports = module.exports = function(req, res) {
 				}
 			}
 
-			var path = "public/media/" + locals.data.song.title + " - " + locals.data.key + "/";
-			console.log("Media path: " + path);
-			fs.readdir(path, function(err, items) {
-				var audioFiles = [];
-				if (items) {
-					console.log("found list of items");
-					for (var i = 0; i < items.length; i++) {
-						if (items[i].split('.').pop() == "mp3") {
-							console.log("adding audio file: " + items[i]);
-							audioFiles.push(items[i]);
-						}
-					}
-				} else {
-					console.log("could not find list of items");
-					// console.log(err);
-				}
+			//console.log(locals.data.song.keys);
 
-				locals.data.trackList = audioFiles;
+			var trackList = [];
+
+			for(var i = 0; i < 12; i++){
+				if(s["track"+i]){
+					var tmpTrack = s["track"+i];
+					if(tmpTrack.filename){
+					trackList.push({title: tmpTrack.filename.replace(/^\d+\s*-*\s*/, '').replace(/\.[^/.]+$/, ""), url: tmpTrack.url});
+				}
+			}
+			}
+
+			//console.log(trackList);
+
+			// var path = "public/media/" + locals.data.song.title + " - " + locals.data.key + "/";
+			// console.log("Media path: " + path);
+			// fs.readdir(path, function(err, items) {
+				// var audioFiles = [];
+				// if (items) {
+				// 	console.log("found list of items");
+				// 	for (var i = 0; i < items.length; i++) {
+				// 		if (items[i].split('.').pop() == "mp3") {
+				// 			console.log("adding audio file: " + items[i]);
+				// 			audioFiles.push(items[i]);
+				// 		}
+				// 	}
+				// } else {
+				// 	console.log("could not find list of items");
+				// 	// console.log(err);
+				// }
+
+				locals.data.trackList = trackList;
 
 				var resultCount = 0;
 
@@ -109,7 +124,7 @@ exports = module.exports = function(req, res) {
 						}
 					});
 
-					console.log(key);
+					//console.log(key);
 					var c = keystone.list('Chord Chart').model.find({
 							state: 'published',
 							song: locals.data.song.id
@@ -137,7 +152,7 @@ exports = module.exports = function(req, res) {
 				// 	videoId + '" frameborder="0" allowfullscreen></iframe>';
 
 
-			});
+			// });
 
 
 		});

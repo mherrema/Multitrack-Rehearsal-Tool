@@ -26,7 +26,7 @@ function loadTracks(title, key, trackList) {
 	var trackArray = [];
 	for (var i = 0; i < trackList.length; i++) {
 		console.log(trackList[i]);
-    trackArray.push({ "src": locationPrefix + title + " - " + key + "/" + trackList[i], "name": trackList[i].replace(/^\d+\s*-*\s*/, '').replace(/\.[^/.]+$/, "")});
+    trackArray.push({ "src": trackList[i].url, "name": trackList[i].title});
 	}
 
 	playlist.load(trackArray).then(function() {

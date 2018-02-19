@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "keystone": "4.0.0-beta.5",
+    "keystone": "git+https://github.com/Jexah/keystone.git",
+    "keystone-storage-adapter-s3": "git+https://github.com/GwonHyeok/keystone-storage-adapter-s3",
     "lodash": "^4.13.1",
     "pug": "2.0.0-beta11",
     "node-sass": "4.5.0",
