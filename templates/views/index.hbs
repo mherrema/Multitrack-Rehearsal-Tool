@@ -12,7 +12,7 @@
 
 <div class="home-body">
 	<div class="container">
-		<div class="row collapse song-list">
+		<div class="row song-list">
 			<div class="small-10 small-offset-1 medium-12 medium-offset-0 columns">
 				{{#if user.isNotAuditionUser}}
 				<h5>Recently Added Songs</h5>
@@ -47,6 +47,12 @@
 
 				</div>
 				{{/each}}
+
+				<div class="small-10 small-offset-1 medium-12 medium-offset-0 columns">
+					{{#if user.isNotAuditionUser}}
+					<a class="button hollow" href="songs/" style="display:block; margin-top: 2em;">See All Songs</a>
+					{{/if}}
+				</div>
 		</div>
 	</div>
 </div>

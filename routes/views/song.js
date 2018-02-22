@@ -41,6 +41,10 @@ exports = module.exports = function(req, res) {
 		q.exec(function(err, result) {
 			locals.data.song = result;
 
+			if(locals.data.song.keys && locals.data.song.keys.length > 1){
+				locals.data.song.keys = locals.data.song.keys.sort();
+			}
+
 			if (!locals.filters.key) {
 				// console.log("not using key filter");
 				if (locals.data.song.keys) {
