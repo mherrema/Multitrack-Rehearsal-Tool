@@ -1,14 +1,6 @@
-<!-- <div class="row collapse top-pad">
-	<div class="small-12 columns">
-<div class="breadcrumb">
-	<a href="/songs">< Back to Songs</a>
-</div>
-</div>
-</div> -->
+
 <div class="row collapse song__header">
 	<div class="small-12 columns">
-		<!-- <p><a href="/songs">&larr; back to the songs</a></p>
-				<hr> -->
 		<div class="row collapse">
 			<div class="small-10 small-offset-1 medium-2 medium-offset-0 columns song__album-art">
 				{{#if data.song.image.url}}
@@ -77,8 +69,6 @@
 			    </label>
 					</div>
 				</form>
-				<!-- <div class="sound-status"></div> -->
-				<!-- <div class="loading-data"></div> -->
 			</div>
 		</div>
 	  </div>
@@ -143,42 +133,15 @@
 
 
 <script>
-// var soundID = "Thunder";
-// function playSound () {
-// 	createjs.Sound.play("Cue");
-// 	createjs.Sound.play("Drums");
-// 	createjs.Sound.play("Rhythm");
-// 	createjs.Sound.play("Lead");
-// 	createjs.Sound.play("Keys");
-// 	createjs.Sound.play(soundID);
-// 	createjs.Sound.play("Synth Bass");
-//   createjs.Sound.play("Vocal");
-// }
-
 	$(function() {
 		var song = {{{json data.song}}};
 		var trackList = {{{json data.trackList}}};
 		var key = {{{json data.key}}};
 		if (WURFL.is_mobile === false) {
-			// alert("not mobile");
 			loadTracks(song.title, key, trackList);
-    // targetSmartPhoneDevices();
 		}
 		else{
-			// alert("mobile");
 			$(".playlist__loading").html("<h4 style='margin-top:2em;'>Unfortunately this device is not capable of using this tool. Please visit on a desktop computer.</h4>");
 		}
-
-
-		// loadTracks(song.title, key, trackList);
-
-		// createjs.Sound.registerSound("/media/Close - E/02 Cue.mp3", "Cue");
-		// createjs.Sound.registerSound("/media/Close - E/03 Drums.mp3", "Drums");
-		// createjs.Sound.registerSound("/media/Close - E/06 Rhythm ELEC.mp3", "Rhythm");
-		// createjs.Sound.registerSound("/media/Close - E/07 Lead ELEC.mp3", "Lead");
-		// createjs.Sound.registerSound("/media/Close - E/08 Live Keys.mp3", "Keys");
-		// createjs.Sound.registerSound("/media/Close - E/09 Tracks.mp3", soundID);
-		// createjs.Sound.registerSound("/media/Close - E/10 Synth Bass.mp3", "Synth Bass");
-		// createjs.Sound.registerSound("/media/Close - E/13 Lead Vocal.mp3", "Vocal");
 	});
 </script>

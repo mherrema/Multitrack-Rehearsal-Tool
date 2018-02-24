@@ -11,8 +11,8 @@ var handlebars = require('express-handlebars');
 // and documentation.
 
 keystone.init({
-	'name': 'Ada Worship',
-	'brand': 'Ada Worship',
+	'name': 'Multitrack Rehearsal Tool',
+	'brand': 'Multitrack Rehearsal Tool',
 
 	'sass': 'public',
 	'static': 'public',

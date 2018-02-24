@@ -338,14 +338,5 @@ module.exports = function() {
 		return obj._[underscoreMethod].format();
 	};
 
-	_helpers.hasRightsToAuditions = function(user) {
-		if (user) {
-			return (user.isAdmin || user.isAuditionUser);
-		}
-		else{
-			return false;
-		}
-	};
-
 	return _helpers;
 };

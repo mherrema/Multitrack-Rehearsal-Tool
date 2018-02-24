@@ -1,6 +1,6 @@
 {
-  "name": "ada-worship",
-  "version": "0.0.1",
+  "name": "multitrack-rehearsal-tool",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "keystone": "4.0.0-beta.5",

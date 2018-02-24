@@ -2,19 +2,16 @@
 <div class="row expanded collapse">
 	<div class="small-12 columns">
 		<div class="hero hero--1 row expanded align-middle">
-			<h1>Welcome to Ada Worship</h1>
+			<h1>Welcome to the Multitrack Rehearsal Tool</h1>
 		</div>
 	</div>
 </div>
-<!-- <div class="jumbotron"><img src="/images/logo.svg" width="160">
-		<h1>Welcome</h1>
-		 -->
 
 <div class="home-body">
 	<div class="container">
 		<div class="row song-list">
 			<div class="small-10 small-offset-1 medium-12 medium-offset-0 columns">
-				{{#if user.isNotAuditionUser}}
+				{{#if user}}
 				<h5>Recently Added Songs</h5>
 				{{/if}}
 			</div>
@@ -49,7 +46,7 @@
 				{{/each}}
 
 				<div class="small-10 small-offset-1 medium-12 medium-offset-0 columns">
-					{{#if user.isNotAuditionUser}}
+					{{#if user}}
 					<a class="button hollow" href="songs/" style="display:block; margin-top: 2em;">See All Songs</a>
 					{{/if}}
 				</div>
