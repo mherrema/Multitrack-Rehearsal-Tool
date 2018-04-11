@@ -42,8 +42,8 @@ keystone.set('signin redirect', function(user, req, res){
 exports = module.exports = function (app) {
 	// Views
 	app.get('/', routes.views.index);
-	app.get('/blog/:category?', routes.views.blog);
-	app.get('/blog/post/:post', routes.views.post);
+	//app.get('/blog/:category?', routes.views.blog);
+	//app.get('/blog/post/:post', routes.views.post);
 	// app.get('/songs*', middleware.requireUser);
 	app.get('/songs/', middleware.requireNonAuditionUser, routes.views.songs);
 	app.get('/songs/:song', middleware.requireUser, routes.views.song);
