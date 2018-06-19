@@ -116,6 +116,24 @@ updateTime(audioPos);
 //   }
 // });
 
+var isPlaying = false;
+
+$container.keydown(function(e){
+    if(e.keyCode == 32){
+      e.preventDefault();
+      if(isPlaying){
+        isLooping = false;
+        isPlaying = false;
+        ee.emit("pause");
+      }
+      else{
+        isPlaying = true;
+        ee.emit("play");
+      }
+        //alert("spacebar!");
+    }
+});
+
 $container.on("click", ".btn-annotations-download", function() {
   ee.emit("annotationsrequest");
 });
@@ -126,16 +144,19 @@ $container.on("click", ".btn-loop", function() {
 });
 
 $container.on("click", ".btn-play", function() {
+  isPlaying = true;
   ee.emit("play");
 });
 
 $container.on("click", ".btn-pause", function() {
   isLooping = false;
+  isPlaying = false;
   ee.emit("pause");
 });
 
 $container.on("click", ".btn-stop", function() {
   isLooping = false;
+  isPlaying = false;
   ee.emit("stop");
 });
 
