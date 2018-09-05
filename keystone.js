@@ -11,13 +11,13 @@ var handlebars = require('express-handlebars');
 // and documentation.
 
 keystone.init({
-	'name': 'Ada Worship',
-	'brand': 'Ada Worship',
+	name: 'Ada Worship',
+	brand: 'Ada Worship',
 
-	'sass': 'public',
-	'static': 'public',
-	'favicon': 'public/favicon.ico',
-	'views': 'templates/views',
+	sass: 'public',
+	static: 'public',
+	favicon: 'public/favicon.ico',
+	views: 'templates/views',
 	'view engine': '.hbs',
 
 	'custom engine': handlebars.create({
@@ -29,8 +29,8 @@ keystone.init({
 	}).engine,
 
 	'auto update': true,
-	'session': true,
-	'auth': true,
+	session: true,
+	auth: true,
 	'user model': 'User',
 });
 
@@ -50,7 +50,6 @@ keystone.set('locals', {
 // Load your project's Routes
 keystone.set('routes', require('./routes'));
 
-
 // Configure the navigation bar in Keystone's Admin UI
 keystone.set('nav', {
 	// posts: ['posts', 'post-categories'],
@@ -59,9 +58,13 @@ keystone.set('nav', {
 	users: 'users',
 });
 
+keystone.set('signin redirect', function(user, req, res) {
+	var url = !user.isAuditionUser ? '/keystone' : '/auditions';
+	res.redirect(url);
+});
+
 keystone.set('signin logo', '../images/logo.svg');
 
 // Start Keystone to connect to your database and initialise the web server
-
 
 keystone.start();

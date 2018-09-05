@@ -9,7 +9,6 @@
  */
 var _ = require('lodash');
 
-
 /**
 	Initialises the standard view locals
 
@@ -17,11 +16,18 @@ var _ = require('lodash');
 	the navigation in the header, you may wish to change this array
 	or replace it with your own templates / logic.
 */
-exports.initLocals = function (req, res, next) {
+exports.initLocals = function(req, res, next) {
+	console.log(req.user);
 	res.locals.leftNavLinks = [
 		// { label: 'Home', key: 'home', href: '/' },
-		{ label: 'Songs', key: 'songs', href: '/songs' },
 	];
+	if (!req.user.isAuditionUser) {
+		res.locals.leftNavLinks.push({
+			label: 'Songs',
+			key: 'songs',
+			href: '/songs',
+		});
+	}
 	res.locals.rightNavLinks = [
 		// { label: 'Home', key: 'home', href: '/' },
 		// { label: 'Blog', key: 'blog', href: '/blog' },
@@ -31,26 +37,28 @@ exports.initLocals = function (req, res, next) {
 	next();
 };
 
-
 /**
 	Fetches and clears the flashMessages before a view is rendered
 */
-exports.flashMessages = function (req, res, next) {
+exports.flashMessages = function(req, res, next) {
 	var flashMessages = {
 		info: req.flash('info'),
 		success: req.flash('success'),
 		warning: req.flash('warning'),
 		error: req.flash('error'),
 	};
-	res.locals.messages = _.some(flashMessages, function (msgs) { return msgs.length; }) ? flashMessages : false;
+	res.locals.messages = _.some(flashMessages, function(msgs) {
+		return msgs.length;
+	})
+		? flashMessages
+		: false;
 	next();
 };
-
 
 /**
 	Prevents people from accessing protected pages when they're not signed in
  */
-exports.requireUser = function (req, res, next) {
+exports.requireUser = function(req, res, next) {
 	if (!req.user) {
 		req.flash('error', 'Please sign in to access this page.');
 		res.redirect('/keystone/signin');
@@ -59,7 +67,7 @@ exports.requireUser = function (req, res, next) {
 	}
 };
 
-exports.requireNonAuditionUser = function (req, res, next) {
+exports.requireNonAuditionUser = function(req, res, next) {
 	if (!req.user || req.user.isAuditionUser) {
 		req.flash('error', 'Please sign in to access this page.');
 		res.redirect('/keystone/signin');
@@ -68,7 +76,7 @@ exports.requireNonAuditionUser = function (req, res, next) {
 	}
 };
 
-exports.requireAuditionUser = function (req, res, next) {
+exports.requireAuditionUser = function(req, res, next) {
 	if (!req.user || (!req.user.isAuditionUser && !req.user.isAdmin)) {
 		req.flash('error', 'Please sign in to access this page.');
 		res.redirect('/keystone/signin');

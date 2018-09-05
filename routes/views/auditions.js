@@ -1,8 +1,7 @@
 var keystone = require('keystone');
 var async = require('async');
 
-exports = module.exports = function (req, res) {
-
+exports = module.exports = function(req, res) {
 	var view = new keystone.View(req, res);
 	var locals = res.locals;
 
@@ -12,38 +11,26 @@ exports = module.exports = function (req, res) {
 		// artist: req.params.artist,
 	};
 	locals.data = {
-	// 	songs: [],
-	// 	artists: [],
-	//
-};
+		// 	songs: [],
+		// 	artists: [],
+		//
+	};
 
-	// Load all songs
-	view.on('init', function (next) {
+	// Load all pages
+	view.on('init', function(next) {
+		var q = keystone
+			.list('Page')
+			.model.find()
+			.where('state', 'published')
+			.limit(1);
 
-		// keystone.list('Artist').model.find().sort('name').exec(function (err, results) {
-    //
-		// 	if (err || !results.length) {
-		// 		return next(err);
-		// 	}
-    //
-		// 	locals.data.artists = results;
-    //
-		// 	// Load the counts for each category
-		// 	async.each(locals.data.artists, function (artist, next) {
-    //
-		// 		keystone.list('Song').model.count().where('artists').in([artist.id]).exec(function (err, count) {
-		// 			artist.songCount = count;
-		// 			next(err);
-		// 		});
-    //
-		// 	}, function (err) {
-		// 		next(err);
-		// 	});
-		// });
-    next();
+		q.exec(function(err, results) {
+			if (results) {
+				locals.data.auditionPage = results[0];
+			}
+			next(err);
+		});
 	});
-
-
 
 	// Render the view
 	view.render('auditions');
