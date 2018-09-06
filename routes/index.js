@@ -33,16 +33,16 @@ var routes = {
 
 // console.log(process.env);
 
-keystone.set('signin redirect', function(user, req, res) {
-	var url = '/';
+keystone.set('signin redirect', function (user, req, res) {
+	var url = "/";
 	if (user) {
-		url = user.isAuditionUser ? '/auditions/' : '/';
+		url = (user.isAuditionUser) ? '/auditions/' : '/';
 	}
 	res.redirect(url);
 });
 
 // Setup Route Bindings
-exports = module.exports = function(app) {
+exports = module.exports = function (app) {
 	// Views
 	app.get('/', routes.views.index);
 	//app.get('/blog/:category?', routes.views.blog);
@@ -50,14 +50,12 @@ exports = module.exports = function(app) {
 	// app.get('/songs*', middleware.requireUser);
 	app.get('/songs/', middleware.requireNonAuditionUser, routes.views.songs);
 	app.get('/songs/:song', middleware.requireUser, routes.views.song);
-	app.get(
-		'/auditions/',
-		middleware.requireAuditionUser,
-		routes.views.auditions,
-	);
+	app.get('/auditions/', middleware.requireAuditionUser, routes.views.auditions);
+
 
 	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
 	// app.get('/protected', middleware.requireUser, routes.views.protected);
 
 	// app.get('/protected', middleware.requireUser, routes.views.protected);
+
 };
