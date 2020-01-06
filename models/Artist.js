@@ -5,14 +5,21 @@ var keystone = require('keystone');
  * ==================
  */
 
-var Artist = new keystone.List('Artist', {
-	autokey: { from: 'name', path: 'key', unique: true },
+keystone.createList('Artist', {
+	schemaDoc: 'Artists of songs',
+	fields: {
+		name: { type: Text, schemaDoc: 'Name of the artist', isRequired: true },
+	},
 });
 
-Artist.add({
-	name: { type: String, required: true },
-});
+// var Artist = new keystone.List('Artist', {
+// 	autokey: { from: 'name', path: 'key', unique: true },
+// });
 
-Artist.relationship({ ref: 'Song', path: 'songs', refPath: 'artist' });
+// Artist.add({
+// 	name: { type: String, required: true },
+// });
 
-Artist.register();
+// Artist.relationship({ ref: 'Song', path: 'songs', refPath: 'artist' });
+
+// Artist.register();

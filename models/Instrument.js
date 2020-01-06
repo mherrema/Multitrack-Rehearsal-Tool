@@ -1,19 +1,19 @@
-var keystone = require('keystone');
+// var keystone = require('keystone');
 
-/**
- * Instrument Model
- * ==================
- */
+// /**
+//  * Instrument Model
+//  * ==================
+//  */
 
-var Instrument = new keystone.List('Instrument', {
-	autokey: { from: 'name', path: 'key', unique: true },
-  defaultSort: 'name'
-});
+// var Instrument = new keystone.List('Instrument', {
+// 	autokey: { from: 'name', path: 'key', unique: true },
+//   defaultSort: 'name'
+// });
 
-Instrument.add({
-	name: { type: String, required: true },
-});
+// Instrument.add({
+// 	name: { type: String, required: true },
+// });
 
-// Instrument.relationship({ ref: 'TutorialVideo', path: 'tutorialvideos', refPath: 'instrument' });
+// // Instrument.relationship({ ref: 'TutorialVideo', path: 'tutorialvideos', refPath: 'instrument' });
 
-Instrument.register();
+// Instrument.register();
