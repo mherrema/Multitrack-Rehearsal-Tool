@@ -32,7 +32,8 @@
     "dotenv": "^8.2.0",
     "next": "^9.1.7",
     "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "react-dom": "^16.12.0",
+    "slugify": "^1.3.6"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.11.2",
