@@ -4,6 +4,7 @@ const linkStyle = {
     marginRight: 15
 };
 
+
 const Header = () => (
     <div>
         <Link href="/">

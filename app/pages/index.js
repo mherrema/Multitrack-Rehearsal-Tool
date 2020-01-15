@@ -1,5 +1,17 @@
 import Layout from '../components/MyLayout';
 import Link from 'next/link';
+import SongList from '../components/SongList';
+
+import { gql } from "apollo-boost";
+import { useQuery } from '@apollo/react-hooks';
+
+const ALL_SONGS = gql`
+  {
+        allSongs {
+            title
+        }
+     }
+`;
 
 function graphql(query, variables = {}) {
     return fetch('http://localhost:3000/admin/api', {
@@ -24,11 +36,16 @@ const GET_SONGS = `
     }
   `;
 
-const Index = props => (
-    <Layout>
+const Index = props => {
+
+    // if (loading) return <p>Loading...</p>;
+    // if (error) return <p>Error :(</p>;
+
+    return (<Layout>
         <h1>Songs</h1>
-        <ul>
-            {props.shows.map(show => (
+        <SongList></SongList>
+        {/* <ul>
+            {data.shows.map(show => (
                 <pre>{show.title}</pre>
                 // <li key={show.id}>
                 //     <Link href="/p/[id]" as={`/p/${show.id}`}>
@@ -36,11 +53,20 @@ const Index = props => (
                 //     </Link>
                 // </li>
             ))}
-        </ul>
-    </Layout>
-);
+        </ul> */}
+    </Layout>)
+}
 
 Index.getInitialProps = async function () {
+    // client.query({
+    //     query: gql`{
+    //   allSongs {
+    //     title
+    //   }
+    // }`
+    // })
+    //     .then(result => console.log(result));
+
     // const res = await fetch('https://api.tvmaze.com/search/shows?q=batman');
     // const data = await res.json();
 

@@ -1,4 +1,10 @@
 import Header from './Header';
+import { ApolloProvider } from '@apollo/react-hooks';
+import ApolloClient from 'apollo-boost';
+
+const client = new ApolloClient({
+    uri: "http://localhost:3000/admin/api",
+});
 
 const layoutStyle = {
     margin: 20,
@@ -7,10 +13,12 @@ const layoutStyle = {
 };
 
 const Layout = props => (
-    <div style={layoutStyle}>
-        <Header />
-        {props.children}
-    </div>
+    <ApolloProvider client={client}>
+        <div style={layoutStyle}>
+            <Header />
+            {props.children}
+        </div>
+    </ApolloProvider>
 );
 
 export default Layout;
