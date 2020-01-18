@@ -21,6 +21,11 @@ const Index = () => {
                 // </li>
             ))}
         </ul> */}
+        <style jsx global>{`
+        body {
+            margin: 0;
+        }
+      `}</style>
     </Layout>)
 }
 

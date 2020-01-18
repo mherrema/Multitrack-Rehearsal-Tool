@@ -1,5 +1,11 @@
 import gql from 'graphql-tag';
+import * as React from 'react';
+import * as ApolloReactCommon from '@apollo/react-common';
+import * as ApolloReactComponents from '@apollo/react-components';
+import * as ApolloReactHoc from '@apollo/react-hoc';
+import * as ApolloReactHooks from '@apollo/react-hooks';
 export type Maybe<T> = T | null;
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string,
@@ -401,12 +407,6 @@ export type Mutation = {
   updateTutorialVideos?: Maybe<Array<Maybe<TutorialVideo>>>,
   deleteTutorialVideo?: Maybe<TutorialVideo>,
   deleteTutorialVideos?: Maybe<Array<Maybe<TutorialVideo>>>,
-  createTestObject?: Maybe<TestObject>,
-  createTestObjects?: Maybe<Array<Maybe<TestObject>>>,
-  updateTestObject?: Maybe<TestObject>,
-  updateTestObjects?: Maybe<Array<Maybe<TestObject>>>,
-  deleteTestObject?: Maybe<TestObject>,
-  deleteTestObjects?: Maybe<Array<Maybe<TestObject>>>,
 };
 
 
@@ -663,37 +663,6 @@ export type MutationDeleteTutorialVideosArgs = {
   ids?: Maybe<Array<Scalars['ID']>>
 };
 
-
-export type MutationCreateTestObjectArgs = {
-  data?: Maybe<TestObjectCreateInput>
-};
-
-
-export type MutationCreateTestObjectsArgs = {
-  data?: Maybe<Array<Maybe<TestObjectsCreateInput>>>
-};
-
-
-export type MutationUpdateTestObjectArgs = {
-  id: Scalars['ID'],
-  data?: Maybe<TestObjectUpdateInput>
-};
-
-
-export type MutationUpdateTestObjectsArgs = {
-  data?: Maybe<Array<Maybe<TestObjectsUpdateInput>>>
-};
-
-
-export type MutationDeleteTestObjectArgs = {
-  id: Scalars['ID']
-};
-
-
-export type MutationDeleteTestObjectsArgs = {
-  ids?: Maybe<Array<Scalars['ID']>>
-};
-
 export type Page = {
    __typename?: 'Page',
   _label_?: Maybe<Scalars['String']>,
@@ -852,10 +821,6 @@ export type Query = {
   TutorialVideo?: Maybe<TutorialVideo>,
   _allTutorialVideosMeta?: Maybe<_QueryMeta>,
   _TutorialVideosMeta?: Maybe<_ListMeta>,
-  allTestObjects?: Maybe<Array<Maybe<TestObject>>>,
-  TestObject?: Maybe<TestObject>,
-  _allTestObjectsMeta?: Maybe<_QueryMeta>,
-  _TestObjectsMeta?: Maybe<_ListMeta>,
   appVersion?: Maybe<Scalars['String']>,
   _ksListsMeta?: Maybe<Array<Maybe<_ListMeta>>>,
 };
@@ -1044,29 +1009,6 @@ export type Query_AllTutorialVideosMetaArgs = {
   skip?: Maybe<Scalars['Int']>
 };
 
-
-export type QueryAllTestObjectsArgs = {
-  where?: Maybe<TestObjectWhereInput>,
-  search?: Maybe<Scalars['String']>,
-  orderBy?: Maybe<Scalars['String']>,
-  first?: Maybe<Scalars['Int']>,
-  skip?: Maybe<Scalars['Int']>
-};
-
-
-export type QueryTestObjectArgs = {
-  where: TestObjectWhereUniqueInput
-};
-
-
-export type Query_AllTestObjectsMetaArgs = {
-  where?: Maybe<TestObjectWhereInput>,
-  search?: Maybe<Scalars['String']>,
-  orderBy?: Maybe<Scalars['String']>,
-  first?: Maybe<Scalars['Int']>,
-  skip?: Maybe<Scalars['Int']>
-};
-
 export type Song = {
    __typename?: 'Song',
   _label_?: Maybe<Scalars['String']>,
@@ -1081,6 +1023,7 @@ export type Song = {
   length?: Maybe<Scalars['String']>,
   publishedDate?: Maybe<Scalars['String']>,
   image?: Maybe<CloudinaryImage_File>,
+  url?: Maybe<Scalars['String']>,
 };
 
 
@@ -1109,7 +1052,6 @@ export type SongCreateInput = {
   bpm?: Maybe<Scalars['Int']>,
   timeSignature?: Maybe<Scalars['String']>,
   length?: Maybe<Scalars['String']>,
-  publishedDate?: Maybe<Scalars['String']>,
   image?: Maybe<Scalars['Upload']>,
 };
 
@@ -1212,8 +1154,8 @@ export type SongUpdateInput = {
   bpm?: Maybe<Scalars['Int']>,
   timeSignature?: Maybe<Scalars['String']>,
   length?: Maybe<Scalars['String']>,
-  publishedDate?: Maybe<Scalars['String']>,
   image?: Maybe<Scalars['Upload']>,
+  url?: Maybe<Scalars['String']>,
 };
 
 export type SongWhereInput = {
@@ -1313,64 +1255,27 @@ export type SongWhereInput = {
   image_not_ends_with?: Maybe<Scalars['String']>,
   image_in?: Maybe<Array<Maybe<Scalars['String']>>>,
   image_not_in?: Maybe<Array<Maybe<Scalars['String']>>>,
+  url?: Maybe<Scalars['String']>,
+  url_not?: Maybe<Scalars['String']>,
+  url_contains?: Maybe<Scalars['String']>,
+  url_not_contains?: Maybe<Scalars['String']>,
+  url_starts_with?: Maybe<Scalars['String']>,
+  url_not_starts_with?: Maybe<Scalars['String']>,
+  url_ends_with?: Maybe<Scalars['String']>,
+  url_not_ends_with?: Maybe<Scalars['String']>,
+  url_i?: Maybe<Scalars['String']>,
+  url_not_i?: Maybe<Scalars['String']>,
+  url_contains_i?: Maybe<Scalars['String']>,
+  url_not_contains_i?: Maybe<Scalars['String']>,
+  url_starts_with_i?: Maybe<Scalars['String']>,
+  url_not_starts_with_i?: Maybe<Scalars['String']>,
+  url_ends_with_i?: Maybe<Scalars['String']>,
+  url_not_ends_with_i?: Maybe<Scalars['String']>,
+  url_in?: Maybe<Array<Maybe<Scalars['String']>>>,
+  url_not_in?: Maybe<Array<Maybe<Scalars['String']>>>,
 };
 
 export type SongWhereUniqueInput = {
-  id: Scalars['ID'],
-};
-
-export type TestObject = {
-   __typename?: 'TestObject',
-  _label_?: Maybe<Scalars['String']>,
-  id?: Maybe<Scalars['ID']>,
-  testNameField?: Maybe<Scalars['String']>,
-};
-
-export type TestObjectCreateInput = {
-  testNameField?: Maybe<Scalars['String']>,
-};
-
-export type TestObjectsCreateInput = {
-  data?: Maybe<TestObjectCreateInput>,
-};
-
-export type TestObjectsUpdateInput = {
-  id: Scalars['ID'],
-  data?: Maybe<TestObjectUpdateInput>,
-};
-
-export type TestObjectUpdateInput = {
-  testNameField?: Maybe<Scalars['String']>,
-};
-
-export type TestObjectWhereInput = {
-  AND?: Maybe<Array<Maybe<TestObjectWhereInput>>>,
-  OR?: Maybe<Array<Maybe<TestObjectWhereInput>>>,
-  id?: Maybe<Scalars['ID']>,
-  id_not?: Maybe<Scalars['ID']>,
-  id_in?: Maybe<Array<Maybe<Scalars['ID']>>>,
-  id_not_in?: Maybe<Array<Maybe<Scalars['ID']>>>,
-  testNameField?: Maybe<Scalars['String']>,
-  testNameField_not?: Maybe<Scalars['String']>,
-  testNameField_contains?: Maybe<Scalars['String']>,
-  testNameField_not_contains?: Maybe<Scalars['String']>,
-  testNameField_starts_with?: Maybe<Scalars['String']>,
-  testNameField_not_starts_with?: Maybe<Scalars['String']>,
-  testNameField_ends_with?: Maybe<Scalars['String']>,
-  testNameField_not_ends_with?: Maybe<Scalars['String']>,
-  testNameField_i?: Maybe<Scalars['String']>,
-  testNameField_not_i?: Maybe<Scalars['String']>,
-  testNameField_contains_i?: Maybe<Scalars['String']>,
-  testNameField_not_contains_i?: Maybe<Scalars['String']>,
-  testNameField_starts_with_i?: Maybe<Scalars['String']>,
-  testNameField_not_starts_with_i?: Maybe<Scalars['String']>,
-  testNameField_ends_with_i?: Maybe<Scalars['String']>,
-  testNameField_not_ends_with_i?: Maybe<Scalars['String']>,
-  testNameField_in?: Maybe<Array<Maybe<Scalars['String']>>>,
-  testNameField_not_in?: Maybe<Array<Maybe<Scalars['String']>>>,
-};
-
-export type TestObjectWhereUniqueInput = {
   id: Scalars['ID'],
 };
 
@@ -1601,4 +1506,156 @@ export type UserWhereUniqueInput = {
   id: Scalars['ID'],
 };
 
+export type GetAllSongsQueryVariables = {};
 
+
+export type GetAllSongsQuery = (
+  { __typename?: 'Query' }
+  & { allSongs: Maybe<Array<Maybe<(
+    { __typename?: 'Song' }
+    & Pick<Song, 'id' | 'title' | 'url'>
+    & { artist: Maybe<(
+      { __typename?: 'Artist' }
+      & Pick<Artist, 'description'>
+    )>, image: Maybe<(
+      { __typename?: 'CloudinaryImage_File' }
+      & Pick<CloudinaryImage_File, 'publicUrl'>
+    )> }
+  )>>> }
+);
+
+export type GetSongQueryVariables = {
+  url: Scalars['String']
+};
+
+
+export type GetSongQuery = (
+  { __typename?: 'Query' }
+  & { allSongs: Maybe<Array<Maybe<(
+    { __typename?: 'Song' }
+    & Pick<Song, 'id' | 'title'>
+    & { artist: Maybe<(
+      { __typename?: 'Artist' }
+      & Pick<Artist, 'description'>
+    )>, image: Maybe<(
+      { __typename?: 'CloudinaryImage_File' }
+      & Pick<CloudinaryImage_File, 'publicUrl'>
+    )> }
+  )>>> }
+);
+
+
+export const GetAllSongsDocument = gql`
+    query getAllSongs {
+  allSongs(where: {state: published}) {
+    id
+    title
+    url
+    artist {
+      description
+    }
+    image {
+      publicUrl
+    }
+  }
+}
+    `;
+export type GetAllSongsComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetAllSongsQuery, GetAllSongsQueryVariables>, 'query'>;
+
+    export const GetAllSongsComponent = (props: GetAllSongsComponentProps) => (
+      <ApolloReactComponents.Query<GetAllSongsQuery, GetAllSongsQueryVariables> query={GetAllSongsDocument} {...props} />
+    );
+    
+export type GetAllSongsProps<TChildProps = {}> = ApolloReactHoc.DataProps<GetAllSongsQuery, GetAllSongsQueryVariables> & TChildProps;
+export function withGetAllSongs<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  GetAllSongsQuery,
+  GetAllSongsQueryVariables,
+  GetAllSongsProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, GetAllSongsQuery, GetAllSongsQueryVariables, GetAllSongsProps<TChildProps>>(GetAllSongsDocument, {
+      alias: 'getAllSongs',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useGetAllSongsQuery__
+ *
+ * To run a query within a React component, call `useGetAllSongsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllSongsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllSongsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllSongsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetAllSongsQuery, GetAllSongsQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetAllSongsQuery, GetAllSongsQueryVariables>(GetAllSongsDocument, baseOptions);
+      }
+export function useGetAllSongsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetAllSongsQuery, GetAllSongsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetAllSongsQuery, GetAllSongsQueryVariables>(GetAllSongsDocument, baseOptions);
+        }
+export type GetAllSongsQueryHookResult = ReturnType<typeof useGetAllSongsQuery>;
+export type GetAllSongsLazyQueryHookResult = ReturnType<typeof useGetAllSongsLazyQuery>;
+export type GetAllSongsQueryResult = ApolloReactCommon.QueryResult<GetAllSongsQuery, GetAllSongsQueryVariables>;
+export const GetSongDocument = gql`
+    query getSong($url: String!) {
+  allSongs(where: {url: $url}, first: 1) {
+    id
+    title
+    artist {
+      description
+    }
+    image {
+      publicUrl
+    }
+  }
+}
+    `;
+export type GetSongComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetSongQuery, GetSongQueryVariables>, 'query'> & ({ variables: GetSongQueryVariables; skip?: boolean; } | { skip: boolean; });
+
+    export const GetSongComponent = (props: GetSongComponentProps) => (
+      <ApolloReactComponents.Query<GetSongQuery, GetSongQueryVariables> query={GetSongDocument} {...props} />
+    );
+    
+export type GetSongProps<TChildProps = {}> = ApolloReactHoc.DataProps<GetSongQuery, GetSongQueryVariables> & TChildProps;
+export function withGetSong<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  GetSongQuery,
+  GetSongQueryVariables,
+  GetSongProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, GetSongQuery, GetSongQueryVariables, GetSongProps<TChildProps>>(GetSongDocument, {
+      alias: 'getSong',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useGetSongQuery__
+ *
+ * To run a query within a React component, call `useGetSongQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSongQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSongQuery({
+ *   variables: {
+ *      url: // value for 'url'
+ *   },
+ * });
+ */
+export function useGetSongQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetSongQuery, GetSongQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetSongQuery, GetSongQueryVariables>(GetSongDocument, baseOptions);
+      }
+export function useGetSongLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetSongQuery, GetSongQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetSongQuery, GetSongQueryVariables>(GetSongDocument, baseOptions);
+        }
+export type GetSongQueryHookResult = ReturnType<typeof useGetSongQuery>;
+export type GetSongLazyQueryHookResult = ReturnType<typeof useGetSongLazyQuery>;
+export type GetSongQueryResult = ApolloReactCommon.QueryResult<GetSongQuery, GetSongQueryVariables>;

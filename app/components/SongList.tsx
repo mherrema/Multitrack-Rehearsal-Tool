@@ -1,42 +1,62 @@
 import { gql } from "apollo-boost";
-import { useQuery } from '@apollo/react-hooks';
-import { Query, Song } from '../api/graphql-client';
+import { useGetAllSongsQuery } from '../api/graphql-client';
 import Link from 'next/link';
 import React, { FunctionComponent } from 'react';
-import slugify from 'slugify';
 
 const ALL_SONGS = gql`
-  {
+   query getAllSongs{
         allSongs(where: { state: published }) {
             id,
-            title
+            title,
+            url,
+            artist{
+                description
+            },
+            image{
+                publicUrl
+            }
         }
      }
 `;
 
 type SongLinkProps = {
     title: string,
+    url: string,
+    imageUrl: string,
+    artist: string
 }
 
-const SongLink: FunctionComponent<SongLinkProps> = ({ title }) => (
-    <li>
-        <Link href="/songs/[title]" as={`/songs/${slugify(title, { lower: true })}`}>
-            <a>{title}</a>
-        </Link>
-    </li>
-);
+const SongLink: FunctionComponent<SongLinkProps> = ({ url, title, imageUrl, artist }) => {
+
+
+    return (
+        <li>
+            <Link href="/songs/[title]" as={`/songs/${url}`}>
+                <a>{title}</a>
+            </Link>
+            <span>{artist}</span>
+
+            <img src={imageUrl} />
+
+        </li>
+    )
+};
 
 const SongList = () => {
-    const { loading, error, data } = useQuery<Query>(ALL_SONGS);
+    const { loading, error, data } = useGetAllSongsQuery();
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error</p>;
 
     return (
         <div>
-            {data.allSongs.map(song => (
-                <SongLink title={song.title} />
-            ))}
+            {data.allSongs.map(song => {
+                let image = song.image ? song.image.publicUrl : null;
+                let artist = song.artist ? song.artist.description : null;
+                return (
+                    <SongLink key={song.id} title={song.title} url={song.url} imageUrl={image} artist={artist} />
+                )
+            })}
         </div>
     );
 }

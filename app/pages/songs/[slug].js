@@ -1,13 +1,13 @@
 import { useRouter } from 'next/router';
 import Layout from '../../components/MyLayout';
+import SongPage from '../../components/SongPage';
 
-export default function Post() {
+export default function Song() {
     const router = useRouter();
 
     return (
         <Layout>
-            <h1>{router.query.title}</h1>
-            <p>This is the blog post content.</p>
+            <SongPage slug={router.query.slug}></SongPage>
         </Layout>
     );
 }

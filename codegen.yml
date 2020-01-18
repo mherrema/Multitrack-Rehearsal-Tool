@@ -2,10 +2,12 @@ overwrite: true
 schema: "http://localhost:3000/admin/api"
 generates:
   app/api/graphql-client.tsx:
+    documents: 
+      - "./app/components/**/*.tsx"
     plugins:
       - "typescript"
       - "typescript-operations"
       - "typescript-react-apollo"
-  ./graphql.schema.json:
-    plugins:
-      - "introspection"
+    config:
+      withHooks: true
+
