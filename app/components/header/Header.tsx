@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import styles from './Header';
 import CSS from 'csstype';
+import { gql } from "apollo-boost";
+import { useGetPagesQuery, GetPagesQuery } from '../../api/graphql-client';
 
 const headerStyle: CSS.Properties = {
     width: "100%",
@@ -17,87 +19,60 @@ const leftNavStyle: CSS.Properties = {
     marginBottom: "0"
 }
 
-const navLinkStyle: CSS.Properties = {
-    fontFamily: "Montserrat",
-    fontWeight: 600,
-    fontSize: "1rem",
-    color: "#999",
-    letterSpacing: "4.2px",
-    textTransform: "uppercase",
-    textDecoration: "none"
-    //     font- family: montserrat;
-    // font - weight: 700;
-    // font - size: 14px;
-    // color: #989898;
-    // letter - spacing: 4.2px;
-    // text - transform: uppercase;
-    // display: flex;
-    // align - items: center;
-    // transition: color 0.2s ease;
+const GET_PAGES = gql`
+   query getPages{
+    allPages(where: { state: published }, first: 3){
+        title,
+        url
+    }
 }
+`;
 
-const Header = () => (
-    // <div>
-    //     <Link href="/">
-    //         <a style={linkStyle}>Home</a>
-    //     </Link>
-    //     <Link href="/about">
-    //         <a style={linkStyle}>About</a>
-    //     </Link>
-    // </div>
+const Header = () => {
+    const { loading, error, data } = useGetPagesQuery();
 
-    <header className="containerFluid" style={headerStyle}>
-        <div className="row align-items-center">
+    let pages: GetPagesQuery["allPages"] = [];
+    if (data) {
+        pages = data.allPages;
+    }
 
-            <div className="col">
-                <div className="row justify-content-center">
-                    <ul style={leftNavStyle}>
-                        <li >
-                            <Link href="/songs" as={`/songs`}>
-                                <a style={navLinkStyle}>Songs</a>
-                            </Link>
-                        </li>
-                    </ul>
-                    {/* {{# each leftNavLinks}}
-				<li {{#ifeq ../section key}}class="active"{{ else}}{{/ ifeq}}>
-					<a href="{{ href }}">{{ label }}</a>
-				</li>
-                    {{/ each}} */}
+    return (
+
+        <header className="containerFluid" style={headerStyle}>
+            <div className="row align-items-center">
+
+                <div className="col">
+                    <div className="row justify-content-center">
+                        <ul style={leftNavStyle}>
+                            <li >
+                                <Link href="/songs" as={`/songs`}>
+                                    <a className="header__link" >Songs</a>
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-            <div className="col-1">
-                <Link href="/" as={`/`}>
-                    <a><img src="/images/logo.svg" className="img-fluid" style={headerLogoStyle} /></a>
-                </Link>
+                <div className="col-1">
+                    <Link href="/" as={`/`}>
+                        <a><img src="/images/logo.svg" className="img-fluid" style={headerLogoStyle} /></a>
+                    </Link>
 
-            </div>
-            <div className="col">
-                <div className="row hide-for-small-only">
-
-
-                    {/* {{# each rightNavLinks}}
-				<li {{#ifeq ../section key}}class="active"{{ else}}{{/ ifeq}}>
-					<a href="{{ href }}">{{ label }}</a>
-				</li>
-                {{/ each}}
-			{{#if user}}
-			<li><a href="/keystone/signout">Sign Out</a></li>
-                {{ else}}
-                <li><a href="/keystone/signin">Sign In</a></li>
-                {{/if}} */}
                 </div>
-            </div>
-
-            {/* {{# each navLinks}} */}
-            {/* <li {{#ifeq ../section key}}class="active"{{ else}}{{/ ifeq}}>
-										<a href="{{ href }}">{{ label }}</a>
-									</li>
-								{
-    {
-        /each}} */}
-            {/* </ul > */}
-        </div >
-        <style jsx>{`
+                <div className="col">
+                    <div className="row justify-content-center">
+                        <ul style={leftNavStyle}>
+                            {pages.map(p => {
+                                return <li key={p.title}>
+                                    <Link href={p.url}>
+                                        <a className="header__link">{p.title}</a>
+                                    </Link>
+                                </li>
+                            })}
+                        </ul>
+                    </div>
+                </div>
+            </div >
+            <style jsx>{`
             header{
                 width: 100%;
                 background: black;
@@ -105,7 +80,8 @@ const Header = () => (
                    marg
             }
             `}</style>
-    </header >
-);
+        </header >
+    )
+};
 
 export default Header;

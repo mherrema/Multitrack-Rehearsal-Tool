@@ -1,0 +1,17 @@
+.header{
+    &__link{
+        font-family: "Montserrat";
+        font-weight: 600;
+        font-size: 1rem;
+        color: #999;
+        letter-spacing: 4.2px;
+        text-transform: uppercase;
+        text-decoration: none;
+        transition: color 0.2s ease;
+
+        &:hover{
+            color: white;
+            text-decoration: none;
+        }
+    }
+}

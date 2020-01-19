@@ -18,3 +18,9 @@ h6{
 body, p{
 	font-family: roboto;
 }
+
+.hover-white{
+	&:hover{
+		color: white;
+	}
+}

@@ -1703,6 +1703,17 @@ export type GetPageQuery = (
   )>>> }
 );
 
+export type GetPagesQueryVariables = {};
+
+
+export type GetPagesQuery = (
+  { __typename?: 'Query' }
+  & { allPages: Maybe<Array<Maybe<(
+    { __typename?: 'Page' }
+    & Pick<Page, 'title' | 'url'>
+  )>>> }
+);
+
 export type GetSettingQueryVariables = {
   slug: Scalars['String']
 };
@@ -1812,6 +1823,56 @@ export function useGetPageLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHook
 export type GetPageQueryHookResult = ReturnType<typeof useGetPageQuery>;
 export type GetPageLazyQueryHookResult = ReturnType<typeof useGetPageLazyQuery>;
 export type GetPageQueryResult = ApolloReactCommon.QueryResult<GetPageQuery, GetPageQueryVariables>;
+export const GetPagesDocument = gql`
+    query getPages {
+  allPages(where: {state: published}, first: 3) {
+    title
+    url
+  }
+}
+    `;
+export type GetPagesComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetPagesQuery, GetPagesQueryVariables>, 'query'>;
+
+    export const GetPagesComponent = (props: GetPagesComponentProps) => (
+      <ApolloReactComponents.Query<GetPagesQuery, GetPagesQueryVariables> query={GetPagesDocument} {...props} />
+    );
+    
+export type GetPagesProps<TChildProps = {}> = ApolloReactHoc.DataProps<GetPagesQuery, GetPagesQueryVariables> & TChildProps;
+export function withGetPages<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  GetPagesQuery,
+  GetPagesQueryVariables,
+  GetPagesProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, GetPagesQuery, GetPagesQueryVariables, GetPagesProps<TChildProps>>(GetPagesDocument, {
+      alias: 'getPages',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useGetPagesQuery__
+ *
+ * To run a query within a React component, call `useGetPagesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPagesQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPagesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetPagesQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetPagesQuery, GetPagesQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetPagesQuery, GetPagesQueryVariables>(GetPagesDocument, baseOptions);
+      }
+export function useGetPagesLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetPagesQuery, GetPagesQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetPagesQuery, GetPagesQueryVariables>(GetPagesDocument, baseOptions);
+        }
+export type GetPagesQueryHookResult = ReturnType<typeof useGetPagesQuery>;
+export type GetPagesLazyQueryHookResult = ReturnType<typeof useGetPagesLazyQuery>;
+export type GetPagesQueryResult = ApolloReactCommon.QueryResult<GetPagesQuery, GetPagesQueryVariables>;
 export const GetSettingDocument = gql`
     query getSetting($slug: String!) {
   allSettings(where: {slug: $slug}, first: 1) {
