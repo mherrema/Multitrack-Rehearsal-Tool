@@ -389,6 +389,12 @@ export type Mutation = {
   updatePages?: Maybe<Array<Maybe<Page>>>,
   deletePage?: Maybe<Page>,
   deletePages?: Maybe<Array<Maybe<Page>>>,
+  createSetting?: Maybe<Setting>,
+  createSettings?: Maybe<Array<Maybe<Setting>>>,
+  updateSetting?: Maybe<Setting>,
+  updateSettings?: Maybe<Array<Maybe<Setting>>>,
+  deleteSetting?: Maybe<Setting>,
+  deleteSettings?: Maybe<Array<Maybe<Setting>>>,
   createSong?: Maybe<Song>,
   createSongs?: Maybe<Array<Maybe<Song>>>,
   updateSong?: Maybe<Song>,
@@ -567,6 +573,37 @@ export type MutationDeletePageArgs = {
 
 
 export type MutationDeletePagesArgs = {
+  ids?: Maybe<Array<Scalars['ID']>>
+};
+
+
+export type MutationCreateSettingArgs = {
+  data?: Maybe<SettingCreateInput>
+};
+
+
+export type MutationCreateSettingsArgs = {
+  data?: Maybe<Array<Maybe<SettingsCreateInput>>>
+};
+
+
+export type MutationUpdateSettingArgs = {
+  id: Scalars['ID'],
+  data?: Maybe<SettingUpdateInput>
+};
+
+
+export type MutationUpdateSettingsArgs = {
+  data?: Maybe<Array<Maybe<SettingsUpdateInput>>>
+};
+
+
+export type MutationDeleteSettingArgs = {
+  id: Scalars['ID']
+};
+
+
+export type MutationDeleteSettingsArgs = {
   ids?: Maybe<Array<Scalars['ID']>>
 };
 
@@ -829,6 +866,10 @@ export type Query = {
   Page?: Maybe<Page>,
   _allPagesMeta?: Maybe<_QueryMeta>,
   _PagesMeta?: Maybe<_ListMeta>,
+  allSettings?: Maybe<Array<Maybe<Setting>>>,
+  Setting?: Maybe<Setting>,
+  _allSettingsMeta?: Maybe<_QueryMeta>,
+  _SettingsMeta?: Maybe<_ListMeta>,
   allSongs?: Maybe<Array<Maybe<Song>>>,
   Song?: Maybe<Song>,
   _allSongsMeta?: Maybe<_QueryMeta>,
@@ -961,6 +1002,29 @@ export type Query_AllPagesMetaArgs = {
 };
 
 
+export type QueryAllSettingsArgs = {
+  where?: Maybe<SettingWhereInput>,
+  search?: Maybe<Scalars['String']>,
+  orderBy?: Maybe<Scalars['String']>,
+  first?: Maybe<Scalars['Int']>,
+  skip?: Maybe<Scalars['Int']>
+};
+
+
+export type QuerySettingArgs = {
+  where: SettingWhereUniqueInput
+};
+
+
+export type Query_AllSettingsMetaArgs = {
+  where?: Maybe<SettingWhereInput>,
+  search?: Maybe<Scalars['String']>,
+  orderBy?: Maybe<Scalars['String']>,
+  first?: Maybe<Scalars['Int']>,
+  skip?: Maybe<Scalars['Int']>
+};
+
+
 export type QueryAllSongsArgs = {
   where?: Maybe<SongWhereInput>,
   search?: Maybe<Scalars['String']>,
@@ -1027,6 +1091,102 @@ export type Query_AllTutorialVideosMetaArgs = {
   orderBy?: Maybe<Scalars['String']>,
   first?: Maybe<Scalars['Int']>,
   skip?: Maybe<Scalars['Int']>
+};
+
+export type Setting = {
+   __typename?: 'Setting',
+  _label_?: Maybe<Scalars['String']>,
+  id?: Maybe<Scalars['ID']>,
+  name?: Maybe<Scalars['String']>,
+  value?: Maybe<Scalars['String']>,
+  slug?: Maybe<Scalars['String']>,
+};
+
+export type SettingCreateInput = {
+  name?: Maybe<Scalars['String']>,
+  value?: Maybe<Scalars['String']>,
+};
+
+export type SettingsCreateInput = {
+  data?: Maybe<SettingCreateInput>,
+};
+
+export type SettingsUpdateInput = {
+  id: Scalars['ID'],
+  data?: Maybe<SettingUpdateInput>,
+};
+
+export type SettingUpdateInput = {
+  name?: Maybe<Scalars['String']>,
+  value?: Maybe<Scalars['String']>,
+  slug?: Maybe<Scalars['String']>,
+};
+
+export type SettingWhereInput = {
+  AND?: Maybe<Array<Maybe<SettingWhereInput>>>,
+  OR?: Maybe<Array<Maybe<SettingWhereInput>>>,
+  id?: Maybe<Scalars['ID']>,
+  id_not?: Maybe<Scalars['ID']>,
+  id_in?: Maybe<Array<Maybe<Scalars['ID']>>>,
+  id_not_in?: Maybe<Array<Maybe<Scalars['ID']>>>,
+  name?: Maybe<Scalars['String']>,
+  name_not?: Maybe<Scalars['String']>,
+  name_contains?: Maybe<Scalars['String']>,
+  name_not_contains?: Maybe<Scalars['String']>,
+  name_starts_with?: Maybe<Scalars['String']>,
+  name_not_starts_with?: Maybe<Scalars['String']>,
+  name_ends_with?: Maybe<Scalars['String']>,
+  name_not_ends_with?: Maybe<Scalars['String']>,
+  name_i?: Maybe<Scalars['String']>,
+  name_not_i?: Maybe<Scalars['String']>,
+  name_contains_i?: Maybe<Scalars['String']>,
+  name_not_contains_i?: Maybe<Scalars['String']>,
+  name_starts_with_i?: Maybe<Scalars['String']>,
+  name_not_starts_with_i?: Maybe<Scalars['String']>,
+  name_ends_with_i?: Maybe<Scalars['String']>,
+  name_not_ends_with_i?: Maybe<Scalars['String']>,
+  name_in?: Maybe<Array<Maybe<Scalars['String']>>>,
+  name_not_in?: Maybe<Array<Maybe<Scalars['String']>>>,
+  value?: Maybe<Scalars['String']>,
+  value_not?: Maybe<Scalars['String']>,
+  value_contains?: Maybe<Scalars['String']>,
+  value_not_contains?: Maybe<Scalars['String']>,
+  value_starts_with?: Maybe<Scalars['String']>,
+  value_not_starts_with?: Maybe<Scalars['String']>,
+  value_ends_with?: Maybe<Scalars['String']>,
+  value_not_ends_with?: Maybe<Scalars['String']>,
+  value_i?: Maybe<Scalars['String']>,
+  value_not_i?: Maybe<Scalars['String']>,
+  value_contains_i?: Maybe<Scalars['String']>,
+  value_not_contains_i?: Maybe<Scalars['String']>,
+  value_starts_with_i?: Maybe<Scalars['String']>,
+  value_not_starts_with_i?: Maybe<Scalars['String']>,
+  value_ends_with_i?: Maybe<Scalars['String']>,
+  value_not_ends_with_i?: Maybe<Scalars['String']>,
+  value_in?: Maybe<Array<Maybe<Scalars['String']>>>,
+  value_not_in?: Maybe<Array<Maybe<Scalars['String']>>>,
+  slug?: Maybe<Scalars['String']>,
+  slug_not?: Maybe<Scalars['String']>,
+  slug_contains?: Maybe<Scalars['String']>,
+  slug_not_contains?: Maybe<Scalars['String']>,
+  slug_starts_with?: Maybe<Scalars['String']>,
+  slug_not_starts_with?: Maybe<Scalars['String']>,
+  slug_ends_with?: Maybe<Scalars['String']>,
+  slug_not_ends_with?: Maybe<Scalars['String']>,
+  slug_i?: Maybe<Scalars['String']>,
+  slug_not_i?: Maybe<Scalars['String']>,
+  slug_contains_i?: Maybe<Scalars['String']>,
+  slug_not_contains_i?: Maybe<Scalars['String']>,
+  slug_starts_with_i?: Maybe<Scalars['String']>,
+  slug_not_starts_with_i?: Maybe<Scalars['String']>,
+  slug_ends_with_i?: Maybe<Scalars['String']>,
+  slug_not_ends_with_i?: Maybe<Scalars['String']>,
+  slug_in?: Maybe<Array<Maybe<Scalars['String']>>>,
+  slug_not_in?: Maybe<Array<Maybe<Scalars['String']>>>,
+};
+
+export type SettingWhereUniqueInput = {
+  id: Scalars['ID'],
 };
 
 export type Song = {
@@ -1543,6 +1703,19 @@ export type GetPageQuery = (
   )>>> }
 );
 
+export type GetSettingQueryVariables = {
+  slug: Scalars['String']
+};
+
+
+export type GetSettingQuery = (
+  { __typename?: 'Query' }
+  & { allSettings: Maybe<Array<Maybe<(
+    { __typename?: 'Setting' }
+    & Pick<Setting, 'name' | 'value'>
+  )>>> }
+);
+
 export type GetSongQueryVariables = {
   url: Scalars['String']
 };
@@ -1639,6 +1812,57 @@ export function useGetPageLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHook
 export type GetPageQueryHookResult = ReturnType<typeof useGetPageQuery>;
 export type GetPageLazyQueryHookResult = ReturnType<typeof useGetPageLazyQuery>;
 export type GetPageQueryResult = ApolloReactCommon.QueryResult<GetPageQuery, GetPageQueryVariables>;
+export const GetSettingDocument = gql`
+    query getSetting($slug: String!) {
+  allSettings(where: {slug: $slug}, first: 1) {
+    name
+    value
+  }
+}
+    `;
+export type GetSettingComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetSettingQuery, GetSettingQueryVariables>, 'query'> & ({ variables: GetSettingQueryVariables; skip?: boolean; } | { skip: boolean; });
+
+    export const GetSettingComponent = (props: GetSettingComponentProps) => (
+      <ApolloReactComponents.Query<GetSettingQuery, GetSettingQueryVariables> query={GetSettingDocument} {...props} />
+    );
+    
+export type GetSettingProps<TChildProps = {}> = ApolloReactHoc.DataProps<GetSettingQuery, GetSettingQueryVariables> & TChildProps;
+export function withGetSetting<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  GetSettingQuery,
+  GetSettingQueryVariables,
+  GetSettingProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, GetSettingQuery, GetSettingQueryVariables, GetSettingProps<TChildProps>>(GetSettingDocument, {
+      alias: 'getSetting',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useGetSettingQuery__
+ *
+ * To run a query within a React component, call `useGetSettingQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSettingQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSettingQuery({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useGetSettingQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetSettingQuery, GetSettingQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetSettingQuery, GetSettingQueryVariables>(GetSettingDocument, baseOptions);
+      }
+export function useGetSettingLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetSettingQuery, GetSettingQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetSettingQuery, GetSettingQueryVariables>(GetSettingDocument, baseOptions);
+        }
+export type GetSettingQueryHookResult = ReturnType<typeof useGetSettingQuery>;
+export type GetSettingLazyQueryHookResult = ReturnType<typeof useGetSettingLazyQuery>;
+export type GetSettingQueryResult = ApolloReactCommon.QueryResult<GetSettingQuery, GetSettingQueryVariables>;
 export const GetSongDocument = gql`
     query getSong($url: String!) {
   allSongs(where: {url: $url}, first: 1) {

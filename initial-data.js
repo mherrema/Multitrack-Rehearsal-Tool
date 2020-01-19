@@ -41,4 +41,21 @@ User created:
 Please change these details after initial login.
 `);
   }
+
+
+
+
+  const settingsMeta = await keystone.executeQuery(
+    `query {
+      _allSettingsMeta {
+        count
+      }
+    }`
+  );
+
+  if ((((settingsMeta || {}).data || {})._allSettingsMeta || {}).count === 0) {
+    keystone.createItems({
+      Setting: [{ name: 'Site Title', value: 'Multitrack Rehearsal Tool', slug: 'site-title' }]
+    });
+  }
 };

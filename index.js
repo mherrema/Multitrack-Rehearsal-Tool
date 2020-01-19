@@ -74,6 +74,9 @@ keystone.createList('Instrument', InstrumentSchema);
 const PageSchema = require('./lists/Page.js');
 keystone.createList('Page', PageSchema);
 
+const SettingSchema = require('./lists/Setting.js');
+keystone.createList('Setting', SettingSchema);
+
 const SongSchema = require('./lists/Song.js');
 keystone.createList('Song', SongSchema);
 
