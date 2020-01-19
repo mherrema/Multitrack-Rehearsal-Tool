@@ -1506,10 +1506,10 @@ export type UserWhereUniqueInput = {
   id: Scalars['ID'],
 };
 
-export type GetAllSongsQueryVariables = {};
+export type GetRecentSongsQueryVariables = {};
 
 
-export type GetAllSongsQuery = (
+export type GetRecentSongsQuery = (
   { __typename?: 'Query' }
   & { allSongs: Maybe<Array<Maybe<(
     { __typename?: 'Song' }
@@ -1545,8 +1545,8 @@ export type GetSongQuery = (
 );
 
 
-export const GetAllSongsDocument = gql`
-    query getAllSongs {
+export const GetRecentSongsDocument = gql`
+    query getRecentSongs {
   allSongs(where: {state: published}) {
     id
     title
@@ -1560,48 +1560,48 @@ export const GetAllSongsDocument = gql`
   }
 }
     `;
-export type GetAllSongsComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetAllSongsQuery, GetAllSongsQueryVariables>, 'query'>;
+export type GetRecentSongsComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetRecentSongsQuery, GetRecentSongsQueryVariables>, 'query'>;
 
-    export const GetAllSongsComponent = (props: GetAllSongsComponentProps) => (
-      <ApolloReactComponents.Query<GetAllSongsQuery, GetAllSongsQueryVariables> query={GetAllSongsDocument} {...props} />
+    export const GetRecentSongsComponent = (props: GetRecentSongsComponentProps) => (
+      <ApolloReactComponents.Query<GetRecentSongsQuery, GetRecentSongsQueryVariables> query={GetRecentSongsDocument} {...props} />
     );
     
-export type GetAllSongsProps<TChildProps = {}> = ApolloReactHoc.DataProps<GetAllSongsQuery, GetAllSongsQueryVariables> & TChildProps;
-export function withGetAllSongs<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+export type GetRecentSongsProps<TChildProps = {}> = ApolloReactHoc.DataProps<GetRecentSongsQuery, GetRecentSongsQueryVariables> & TChildProps;
+export function withGetRecentSongs<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
   TProps,
-  GetAllSongsQuery,
-  GetAllSongsQueryVariables,
-  GetAllSongsProps<TChildProps>>) {
-    return ApolloReactHoc.withQuery<TProps, GetAllSongsQuery, GetAllSongsQueryVariables, GetAllSongsProps<TChildProps>>(GetAllSongsDocument, {
-      alias: 'getAllSongs',
+  GetRecentSongsQuery,
+  GetRecentSongsQueryVariables,
+  GetRecentSongsProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, GetRecentSongsQuery, GetRecentSongsQueryVariables, GetRecentSongsProps<TChildProps>>(GetRecentSongsDocument, {
+      alias: 'getRecentSongs',
       ...operationOptions
     });
 };
 
 /**
- * __useGetAllSongsQuery__
+ * __useGetRecentSongsQuery__
  *
- * To run a query within a React component, call `useGetAllSongsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAllSongsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * To run a query within a React component, call `useGetRecentSongsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRecentSongsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetAllSongsQuery({
+ * const { data, loading, error } = useGetRecentSongsQuery({
  *   variables: {
  *   },
  * });
  */
-export function useGetAllSongsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetAllSongsQuery, GetAllSongsQueryVariables>) {
-        return ApolloReactHooks.useQuery<GetAllSongsQuery, GetAllSongsQueryVariables>(GetAllSongsDocument, baseOptions);
+export function useGetRecentSongsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetRecentSongsQuery, GetRecentSongsQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetRecentSongsQuery, GetRecentSongsQueryVariables>(GetRecentSongsDocument, baseOptions);
       }
-export function useGetAllSongsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetAllSongsQuery, GetAllSongsQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<GetAllSongsQuery, GetAllSongsQueryVariables>(GetAllSongsDocument, baseOptions);
+export function useGetRecentSongsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetRecentSongsQuery, GetRecentSongsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetRecentSongsQuery, GetRecentSongsQueryVariables>(GetRecentSongsDocument, baseOptions);
         }
-export type GetAllSongsQueryHookResult = ReturnType<typeof useGetAllSongsQuery>;
-export type GetAllSongsLazyQueryHookResult = ReturnType<typeof useGetAllSongsLazyQuery>;
-export type GetAllSongsQueryResult = ApolloReactCommon.QueryResult<GetAllSongsQuery, GetAllSongsQueryVariables>;
+export type GetRecentSongsQueryHookResult = ReturnType<typeof useGetRecentSongsQuery>;
+export type GetRecentSongsLazyQueryHookResult = ReturnType<typeof useGetRecentSongsLazyQuery>;
+export type GetRecentSongsQueryResult = ApolloReactCommon.QueryResult<GetRecentSongsQuery, GetRecentSongsQueryVariables>;
 export const GetSongDocument = gql`
     query getSong($url: String!) {
   allSongs(where: {url: $url}, first: 1) {

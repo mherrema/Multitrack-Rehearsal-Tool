@@ -1,0 +1,28 @@
+.btn {
+	border-radius: 0;
+	font-family: montserrat, sans-serif;
+	text-transform: uppercase;
+	font-size: 0.8rem;
+	letter-spacing: 0;
+	background: black;
+	border-color: black;
+	color: white;
+
+	&:hover {
+		background: #333;
+	}
+
+	// &--dark {
+	// 	color: black;
+	// 	border-color: black;
+	// }
+
+	&--outline {
+		background: transparent;
+		color: black;
+
+		&:hover {
+			background: #eee;
+		}
+	}
+}

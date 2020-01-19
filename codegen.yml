@@ -4,6 +4,7 @@ generates:
   app/api/graphql-client.tsx:
     documents: 
       - "./app/components/**/*.tsx"
+      - "./app/pages/**/*.tsx"
     plugins:
       - "typescript"
       - "typescript-operations"

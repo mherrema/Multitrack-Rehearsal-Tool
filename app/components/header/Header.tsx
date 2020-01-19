@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import styles from './Header';
 import CSS from 'csstype';
-import 'bootstrap/dist/css/bootstrap.css';
 
 const headerStyle: CSS.Properties = {
     width: "100%",
@@ -34,7 +33,7 @@ const Header = () => (
                 </div>
             </div>
             <div className="columns grow">
-                <a className="logo" href="/"><img src="/images/logo.svg" /></a>
+                {/* <a className="logo" href="/"><img src="/images/logo.svg" /></a> */}
             </div>
             <div className="small-4 columns">
                 <div className="row hide-for-small-only">

@@ -1,31 +1,28 @@
-import Layout from '../components/MyLayout';
-import Link from 'next/link';
-import SongList from '../components/SongList';
+import Layout from '../components/Layout';
+import RecentlyAddedSongsList from '../components/song/RecentlyAddedSongsList';
+import Hero from '../components/hero/Hero';
+import CSS from 'csstype';
 
+const h4Styles: CSS.Properties = {
+    marginBottom: "2rem"
+}
 
 const Index = () => {
 
-    // if (loading) return <p>Loading...</p>;
-    // if (error) return <p>Error :(</p>;
-
     return (<Layout>
-        <h1>Songs</h1>
-        <SongList></SongList>
-        {/* <ul>
-            {data.shows.map(show => (
-                <pre>{show.title}</pre>
-                // <li key={show.id}>
-                //     <Link href="/p/[id]" as={`/p/${show.id}`}>
-                //         <a>{show.name}</a>
-                //     </Link>
-                // </li>
-            ))}
-        </ul> */}
-        <style jsx global>{`
-        body {
-            margin: 0;
-        }
-      `}</style>
+        {/* <div className="row">
+            <div className="col">
+                <div className="hero hero--1 row">
+                    <h1>Welcome to the Multitrack Rehearsal Tool</h1>
+                </div>
+            </div>
+        </div> */}
+        <Hero></Hero>
+        <div className="container">
+            <h4 style={h4Styles}>Recently Added Songs</h4>
+            <RecentlyAddedSongsList />
+            <button className="btn" >See All Songs</button>
+        </div>
     </Layout>)
 }
 
