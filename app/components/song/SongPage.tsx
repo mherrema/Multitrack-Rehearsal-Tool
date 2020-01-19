@@ -37,7 +37,7 @@ const tabContainerStyle: CSS.Properties = {
 }
 
 const GET_SONG = gql`
-   query getSong($url: String!){
+   query getSong($url: String){
     allSongs(where: {url: $url}, first: 1){
         id,
         title,
@@ -52,6 +52,7 @@ const GET_SONG = gql`
 `;
 
 const SongPage: FunctionComponent<Props> = ({ slug }) => {
+
     const { loading, error, data } = useGetSongQuery({
         variables: {
             url: slug
@@ -95,6 +96,9 @@ const SongPage: FunctionComponent<Props> = ({ slug }) => {
                     </Tabs>
                 </div>
             )
+        }
+        else {
+            songPage = <h2>Unable to retrieve song</h2>
         }
     }
     return (

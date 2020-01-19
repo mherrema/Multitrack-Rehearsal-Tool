@@ -63,7 +63,7 @@ const Header = () => {
                         <ul style={leftNavStyle}>
                             {pages.map(p => {
                                 return <li key={p.title}>
-                                    <Link href={p.url}>
+                                    <Link href="/pages/[slug]" as={`/pages/${p.url}`}>
                                         <a className="header__link">{p.title}</a>
                                     </Link>
                                 </li>

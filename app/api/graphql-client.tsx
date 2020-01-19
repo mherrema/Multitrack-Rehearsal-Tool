@@ -1728,7 +1728,7 @@ export type GetSettingQuery = (
 );
 
 export type GetSongQueryVariables = {
-  url: Scalars['String']
+  url?: Maybe<Scalars['String']>
 };
 
 
@@ -1925,7 +1925,7 @@ export type GetSettingQueryHookResult = ReturnType<typeof useGetSettingQuery>;
 export type GetSettingLazyQueryHookResult = ReturnType<typeof useGetSettingLazyQuery>;
 export type GetSettingQueryResult = ApolloReactCommon.QueryResult<GetSettingQuery, GetSettingQueryVariables>;
 export const GetSongDocument = gql`
-    query getSong($url: String!) {
+    query getSong($url: String) {
   allSongs(where: {url: $url}, first: 1) {
     id
     title
@@ -1938,7 +1938,7 @@ export const GetSongDocument = gql`
   }
 }
     `;
-export type GetSongComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetSongQuery, GetSongQueryVariables>, 'query'> & ({ variables: GetSongQueryVariables; skip?: boolean; } | { skip: boolean; });
+export type GetSongComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetSongQuery, GetSongQueryVariables>, 'query'>;
 
     export const GetSongComponent = (props: GetSongComponentProps) => (
       <ApolloReactComponents.Query<GetSongQuery, GetSongQueryVariables> query={GetSongDocument} {...props} />
