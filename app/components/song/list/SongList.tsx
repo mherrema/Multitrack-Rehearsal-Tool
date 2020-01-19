@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import SongListItem from './SongListItem';
-import { Song } from '../../api/graphql-client';
+import { Song } from '../../../api/graphql-client';
 
 
 interface Props {

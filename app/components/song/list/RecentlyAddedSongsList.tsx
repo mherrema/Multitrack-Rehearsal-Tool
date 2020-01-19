@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react'
 import { gql } from "apollo-boost";
 import SongList from './SongList';
-import { useGetRecentSongsQuery } from '../../api/graphql-client';
+import { useGetRecentSongsQuery } from '../../../api/graphql-client';
 
 interface Props {
 

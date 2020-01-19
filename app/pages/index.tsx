@@ -1,5 +1,5 @@
 import Layout from '../components/Layout';
-import RecentlyAddedSongsList from '../components/song/RecentlyAddedSongsList';
+import RecentlyAddedSongsList from '../components/song/list/RecentlyAddedSongsList';
 import Hero from '../components/hero/Hero';
 import CSS from 'csstype';
 

@@ -2,6 +2,10 @@ import React, { FunctionComponent } from 'react'
 import { gql } from "apollo-boost";
 import { useGetSongQuery } from '../../api/graphql-client';
 import CSS from 'csstype';
+import { Tab, Tabs } from 'react-bootstrap'
+import Multitrack from './Multitrack';
+import Videos from './Videos';
+import ChordCharts from './ChordCharts';
 
 interface Props {
     slug: string
@@ -27,6 +31,10 @@ const artistStyle: CSS.Properties = {
     letterSpacing: "3px",
     textTransform: "uppercase"
 };
+
+const tabContainerStyle: CSS.Properties = {
+    marginTop: "2rem"
+}
 
 const GET_SONG = gql`
    query getSong($url: String!){
@@ -62,29 +70,30 @@ const SongPage: FunctionComponent<Props> = ({ slug }) => {
             let imageUrl = song.image ? song.image.publicUrl : "images/album-placeholder.png";
 
             songPage = (
-
-
-                < div className="row" >
-                    <div className="col-2 song__album-art">
-                        {/* {{#if data.song.image.url}} */}
-                        {/* <img src="{{{cloudinaryUrl data.song.image width=750 height=450 crop='fit' }}}" className="img-responsive">
-                                    {{ else}}
-                                    <img src="/images/album-placeholder.png" className="img" />
-                                    {{/if}} */}
-                        {/* {{{data.song.content.extended}}} */}
-                        <img src={imageUrl} className="img-fluid" />
-
+                <div>
+                    <div className="row">
+                        <div className="col-2 song__album-art">
+                            <img src={imageUrl} className="img-fluid" />
+                        </div>
+                        <div className="col-10" style={songInfoContainerStyle}>
+                            <h5 style={artistStyle}>
+                                {artist}
+                            </h5>
+                            <h1 className="song__title">{song.title}</h1>
+                        </div>
                     </div>
-                    <div className="col-10" style={songInfoContainerStyle}>
-                        <h5 style={artistStyle}>
-                            {artist}
-                        </h5>
-                        <h1 className="song__title">{song.title}</h1>
-
-                    </div>
-                </div >
-                //         </div>
-                // </div>
+                    <Tabs id="uncontrolled-tab-example" style={tabContainerStyle}>
+                        <Tab eventKey="multitrack" title="Multitrack">
+                            <Multitrack />
+                        </Tab>
+                        <Tab eventKey="videos" title="Videos">
+                            <Videos />
+                        </Tab>
+                        <Tab eventKey="chordChart" title="Chord Chart">
+                            <ChordCharts />
+                        </Tab>
+                    </Tabs>
+                </div>
             )
         }
     }
