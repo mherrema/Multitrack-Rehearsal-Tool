@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import Header from './header/Header';
+import Header from '../header/Header';
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks'
 import 'bootstrap/dist/css/bootstrap.css';
-import Fonts from './general/Fonts'
-import "../styles/styles.scss";
+import Fonts from './Fonts'
+import "../../styles/styles.scss";
 
 interface Props {
 

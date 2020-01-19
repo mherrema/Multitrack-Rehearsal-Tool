@@ -67,7 +67,7 @@ const SongPage: FunctionComponent<Props> = ({ slug }) => {
             let song = data.allSongs[0];
 
             let artist = song.artist ? song.artist.description : null;
-            let imageUrl = song.image ? song.image.publicUrl : "images/album-placeholder.png";
+            let imageUrl = song.image ? song.image.publicUrl : "/images/album-placeholder.png";
 
             songPage = (
                 <div>

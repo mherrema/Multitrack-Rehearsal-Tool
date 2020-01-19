@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react'
 import { gql } from "apollo-boost";
-import SongList from './SongList';
-import { useGetRecentSongsQuery } from '../../../api/graphql-client';
+import SongList from '../SongList';
+import { useGetRecentSongsQuery } from '../../../../api/graphql-client';
 
 interface Props {
 
@@ -12,7 +12,7 @@ interface State {
 
 const RECENT_SONGS = gql`
    query getRecentSongs{
-        allSongs(where: { state: published, orderBy: "publishedDate_DESC", first: 6 }) {
+        allSongs(where: { state: published }, orderBy: "publishedDate_DESC", first: 6 ) {
             id,
             title,
             url,

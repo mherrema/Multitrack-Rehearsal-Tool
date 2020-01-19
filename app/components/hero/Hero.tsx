@@ -2,22 +2,14 @@ import React, { Component } from 'react'
 import CSS from 'csstype';
 
 interface Props {
-
+    text: string,
+    imageUrl: string
 }
 interface State {
 
 }
 
-const heroStyles: CSS.Properties = {
-    background: "url(/images/hero-bg.jpg)",
-    minHeight: "400px",
-    backgroundSize: "cover",
-    backgroundPosition: "center center",
-    marginBottom: "2rem",
-    display: "flex",
-    alignItems: "center",
-    textAlign: "center"
-}
+
 
 const heroHeadingStyles: CSS.Properties = {
     color: "white",
@@ -29,9 +21,21 @@ export default class hero extends Component<Props, State> {
     state = {}
 
     render() {
+        let imageUrl = "url(" + this.props.imageUrl + ") center center / cover";
+        const heroStyles: CSS.Properties = {
+            background: imageUrl,
+            minHeight: "400px",
+            backgroundSize: "cover",
+            backgroundPosition: "center center",
+            marginBottom: "2rem",
+            display: "flex",
+            alignItems: "center",
+            textAlign: "center"
+        }
+
         return (
             <div style={heroStyles}>
-                <h1 style={heroHeadingStyles}>Welcome to the Multitrack Rehearsal Tool</h1>
+                <h1 style={heroHeadingStyles}>{this.props.text}</h1>
             </div>
         )
     }

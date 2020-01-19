@@ -1,4 +1,4 @@
-const { Text, CloudinaryImage, Select } = require('@keystonejs/fields');
+const { Text, CloudinaryImage, Select, Slug } = require('@keystonejs/fields');
 const { CloudinaryAdapter } = require('@keystonejs/file-adapters');
 const { Wysiwyg } = require('@keystonejs/fields-wysiwyg-tinymce');
 
@@ -30,6 +30,15 @@ module.exports = {
         contactEmail: {
             type: Text
         },
+        url: {
+            access: {
+                read: true,
+                update: true,
+                create: false
+            },
+            type: Slug,
+            regenerateOnUpdate: true
+        }
     },
     labelField: "title"
 };

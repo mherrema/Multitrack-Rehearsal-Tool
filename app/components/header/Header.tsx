@@ -8,6 +8,33 @@ const headerStyle: CSS.Properties = {
     background: "black"
 };
 
+const headerLogoStyle: CSS.Properties = {
+    maxHeight: "50px"
+}
+
+const leftNavStyle: CSS.Properties = {
+    listStyle: "none",
+    marginBottom: "0"
+}
+
+const navLinkStyle: CSS.Properties = {
+    fontFamily: "Montserrat",
+    fontWeight: 600,
+    fontSize: "1rem",
+    color: "#999",
+    letterSpacing: "4.2px",
+    textTransform: "uppercase",
+    textDecoration: "none"
+    //     font- family: montserrat;
+    // font - weight: 700;
+    // font - size: 14px;
+    // color: #989898;
+    // letter - spacing: 4.2px;
+    // text - transform: uppercase;
+    // display: flex;
+    // align - items: center;
+    // transition: color 0.2s ease;
+}
 
 const Header = () => (
     // <div>
@@ -19,12 +46,18 @@ const Header = () => (
     //     </Link>
     // </div>
 
-    <header style={headerStyle}>
-        <div className="row expanded align-middle">
+    <header className="containerFluid" style={headerStyle}>
+        <div className="row align-items-center">
 
-            <div className="small-4 columns">
-                <div className="row">
-
+            <div className="col">
+                <div className="row justify-content-center">
+                    <ul style={leftNavStyle}>
+                        <li >
+                            <Link href="/songs" as={`/songs`}>
+                                <a style={navLinkStyle}>Songs</a>
+                            </Link>
+                        </li>
+                    </ul>
                     {/* {{# each leftNavLinks}}
 				<li {{#ifeq ../section key}}class="active"{{ else}}{{/ ifeq}}>
 					<a href="{{ href }}">{{ label }}</a>
@@ -32,10 +65,13 @@ const Header = () => (
                     {{/ each}} */}
                 </div>
             </div>
-            <div className="columns grow">
-                {/* <a className="logo" href="/"><img src="/images/logo.svg" /></a> */}
+            <div className="col-1">
+                <Link href="/" as={`/`}>
+                    <a><img src="/images/logo.svg" className="img-fluid" style={headerLogoStyle} /></a>
+                </Link>
+
             </div>
-            <div className="small-4 columns">
+            <div className="col">
                 <div className="row hide-for-small-only">
 
 
