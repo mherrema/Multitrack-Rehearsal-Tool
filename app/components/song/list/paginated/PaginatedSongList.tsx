@@ -1,5 +1,4 @@
-import React, { Component, FunctionComponent } from 'react'
-// import SongPagination from './paginated/SongPagination'
+import React, { FunctionComponent } from 'react'
 import { gql } from "apollo-boost";
 import { useGetAllSongsQuery } from '../../../../api/graphql-client';
 import SongList from '../SongList';
@@ -27,7 +26,7 @@ const ALL_SONGS = gql`
 
 const PaginatedSongList: FunctionComponent<Props> = ({ page, pageLength }) => {
     const skip = (page - 1) * pageLength;
-    let { loading, error, data, fetchMore } = useGetAllSongsQuery({ variables: { pageLength: pageLength, offset: skip }, fetchPolicy: "cache-and-network" });
+    let { loading, error, data } = useGetAllSongsQuery({ variables: { pageLength: pageLength, offset: skip }, fetchPolicy: "cache-and-network" });
 
     if (loading) { console.log("loading " + page + " " + pageLength + " " + skip); return <p>Loading...</p> };
     if (error) { return <p>Error Loading Songs</p> };
