@@ -10,6 +10,10 @@ const headerStyle: CSS.Properties = {
     background: "black"
 };
 
+const headerRowStyle: CSS.Properties = {
+    height: "100%"
+}
+
 const headerLogoStyle: CSS.Properties = {
     maxHeight: "50px"
 }
@@ -39,7 +43,7 @@ const Header = () => {
     return (
 
         <header className="containerFluid" style={headerStyle}>
-            <div className="row align-items-center">
+            <div className="row align-items-center" style={headerRowStyle}>
 
                 <div className="col">
                     <div className="row justify-content-center">

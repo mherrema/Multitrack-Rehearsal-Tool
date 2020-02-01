@@ -17,10 +17,12 @@ export default class AllSongs extends Component<Props, State> {
     }
 
     render() {
+        const pageLength = 24;
+
         return (
             <div>
-                <PaginatedSongList page={this.state.currentPage} pageLength={2}></PaginatedSongList>
-                <SongPagination songsPerPage={2} onPageChange={this.onPageChange}></SongPagination>
+                <PaginatedSongList page={this.state.currentPage} pageLength={pageLength}></PaginatedSongList>
+                <SongPagination songsPerPage={pageLength} onPageChange={this.onPageChange}></SongPagination>
             </div>
         )
     }

@@ -7,9 +7,6 @@ interface Props {
     songsPerPage: number;
     onPageChange: Function;
 }
-interface State {
-
-}
 
 const ALL_SONGS_META = gql`
    query getAllSongsMeta{
