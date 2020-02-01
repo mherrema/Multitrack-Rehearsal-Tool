@@ -1747,6 +1747,38 @@ export type GetSongQuery = (
   )>>> }
 );
 
+export type GetAllSongsQueryVariables = {
+  offset?: Maybe<Scalars['Int']>,
+  pageLength?: Maybe<Scalars['Int']>
+};
+
+
+export type GetAllSongsQuery = (
+  { __typename?: 'Query' }
+  & { allSongs: Maybe<Array<Maybe<(
+    { __typename?: 'Song' }
+    & Pick<Song, 'id' | 'title' | 'url'>
+    & { artist: Maybe<(
+      { __typename?: 'Artist' }
+      & Pick<Artist, 'description'>
+    )>, image: Maybe<(
+      { __typename?: 'CloudinaryImage_File' }
+      & Pick<CloudinaryImage_File, 'publicUrl'>
+    )> }
+  )>>> }
+);
+
+export type GetAllSongsMetaQueryVariables = {};
+
+
+export type GetAllSongsMetaQuery = (
+  { __typename?: 'Query' }
+  & { _allSongsMeta: Maybe<(
+    { __typename?: '_QueryMeta' }
+    & Pick<_QueryMeta, 'count'>
+  )> }
+);
+
 export type GetRecentSongsQueryVariables = {};
 
 
@@ -1981,6 +2013,114 @@ export function useGetSongLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHook
 export type GetSongQueryHookResult = ReturnType<typeof useGetSongQuery>;
 export type GetSongLazyQueryHookResult = ReturnType<typeof useGetSongLazyQuery>;
 export type GetSongQueryResult = ApolloReactCommon.QueryResult<GetSongQuery, GetSongQueryVariables>;
+export const GetAllSongsDocument = gql`
+    query getAllSongs($offset: Int, $pageLength: Int) {
+  allSongs(where: {state: published}, orderBy: "title", first: $pageLength, skip: $offset) {
+    id
+    title
+    url
+    artist {
+      description
+    }
+    image {
+      publicUrl
+    }
+  }
+}
+    `;
+export type GetAllSongsComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetAllSongsQuery, GetAllSongsQueryVariables>, 'query'>;
+
+    export const GetAllSongsComponent = (props: GetAllSongsComponentProps) => (
+      <ApolloReactComponents.Query<GetAllSongsQuery, GetAllSongsQueryVariables> query={GetAllSongsDocument} {...props} />
+    );
+    
+export type GetAllSongsProps<TChildProps = {}> = ApolloReactHoc.DataProps<GetAllSongsQuery, GetAllSongsQueryVariables> & TChildProps;
+export function withGetAllSongs<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  GetAllSongsQuery,
+  GetAllSongsQueryVariables,
+  GetAllSongsProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, GetAllSongsQuery, GetAllSongsQueryVariables, GetAllSongsProps<TChildProps>>(GetAllSongsDocument, {
+      alias: 'getAllSongs',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useGetAllSongsQuery__
+ *
+ * To run a query within a React component, call `useGetAllSongsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllSongsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllSongsQuery({
+ *   variables: {
+ *      offset: // value for 'offset'
+ *      pageLength: // value for 'pageLength'
+ *   },
+ * });
+ */
+export function useGetAllSongsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetAllSongsQuery, GetAllSongsQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetAllSongsQuery, GetAllSongsQueryVariables>(GetAllSongsDocument, baseOptions);
+      }
+export function useGetAllSongsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetAllSongsQuery, GetAllSongsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetAllSongsQuery, GetAllSongsQueryVariables>(GetAllSongsDocument, baseOptions);
+        }
+export type GetAllSongsQueryHookResult = ReturnType<typeof useGetAllSongsQuery>;
+export type GetAllSongsLazyQueryHookResult = ReturnType<typeof useGetAllSongsLazyQuery>;
+export type GetAllSongsQueryResult = ApolloReactCommon.QueryResult<GetAllSongsQuery, GetAllSongsQueryVariables>;
+export const GetAllSongsMetaDocument = gql`
+    query getAllSongsMeta {
+  _allSongsMeta(where: {state: published}) {
+    count
+  }
+}
+    `;
+export type GetAllSongsMetaComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetAllSongsMetaQuery, GetAllSongsMetaQueryVariables>, 'query'>;
+
+    export const GetAllSongsMetaComponent = (props: GetAllSongsMetaComponentProps) => (
+      <ApolloReactComponents.Query<GetAllSongsMetaQuery, GetAllSongsMetaQueryVariables> query={GetAllSongsMetaDocument} {...props} />
+    );
+    
+export type GetAllSongsMetaProps<TChildProps = {}> = ApolloReactHoc.DataProps<GetAllSongsMetaQuery, GetAllSongsMetaQueryVariables> & TChildProps;
+export function withGetAllSongsMeta<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  GetAllSongsMetaQuery,
+  GetAllSongsMetaQueryVariables,
+  GetAllSongsMetaProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, GetAllSongsMetaQuery, GetAllSongsMetaQueryVariables, GetAllSongsMetaProps<TChildProps>>(GetAllSongsMetaDocument, {
+      alias: 'getAllSongsMeta',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useGetAllSongsMetaQuery__
+ *
+ * To run a query within a React component, call `useGetAllSongsMetaQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllSongsMetaQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllSongsMetaQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllSongsMetaQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetAllSongsMetaQuery, GetAllSongsMetaQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetAllSongsMetaQuery, GetAllSongsMetaQueryVariables>(GetAllSongsMetaDocument, baseOptions);
+      }
+export function useGetAllSongsMetaLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetAllSongsMetaQuery, GetAllSongsMetaQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetAllSongsMetaQuery, GetAllSongsMetaQueryVariables>(GetAllSongsMetaDocument, baseOptions);
+        }
+export type GetAllSongsMetaQueryHookResult = ReturnType<typeof useGetAllSongsMetaQuery>;
+export type GetAllSongsMetaLazyQueryHookResult = ReturnType<typeof useGetAllSongsMetaLazyQuery>;
+export type GetAllSongsMetaQueryResult = ApolloReactCommon.QueryResult<GetAllSongsMetaQuery, GetAllSongsMetaQueryVariables>;
 export const GetRecentSongsDocument = gql`
     query getRecentSongs {
   allSongs(where: {state: published}, orderBy: "publishedDate_DESC", first: 6) {
