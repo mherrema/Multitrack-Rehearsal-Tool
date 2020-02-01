@@ -292,6 +292,17 @@ export type CloudinaryImageFormat = {
   transformation?: Maybe<Scalars['String']>,
 };
 
+export type File = {
+   __typename?: 'File',
+  id?: Maybe<Scalars['ID']>,
+  path?: Maybe<Scalars['String']>,
+  filename?: Maybe<Scalars['String']>,
+  originalFilename?: Maybe<Scalars['String']>,
+  mimetype?: Maybe<Scalars['String']>,
+  encoding?: Maybe<Scalars['String']>,
+  publicUrl?: Maybe<Scalars['String']>,
+};
+
 export type Instrument = {
    __typename?: 'Instrument',
   _label_?: Maybe<Scalars['String']>,
@@ -401,6 +412,12 @@ export type Mutation = {
   updateSongs?: Maybe<Array<Maybe<Song>>>,
   deleteSong?: Maybe<Song>,
   deleteSongs?: Maybe<Array<Maybe<Song>>>,
+  createSongFile?: Maybe<SongFile>,
+  createSongFiles?: Maybe<Array<Maybe<SongFile>>>,
+  updateSongFile?: Maybe<SongFile>,
+  updateSongFiles?: Maybe<Array<Maybe<SongFile>>>,
+  deleteSongFile?: Maybe<SongFile>,
+  deleteSongFiles?: Maybe<Array<Maybe<SongFile>>>,
   createSongKey?: Maybe<SongKey>,
   createSongKeys?: Maybe<Array<Maybe<SongKey>>>,
   updateSongKey?: Maybe<SongKey>,
@@ -635,6 +652,37 @@ export type MutationDeleteSongArgs = {
 
 
 export type MutationDeleteSongsArgs = {
+  ids?: Maybe<Array<Scalars['ID']>>
+};
+
+
+export type MutationCreateSongFileArgs = {
+  data?: Maybe<SongFileCreateInput>
+};
+
+
+export type MutationCreateSongFilesArgs = {
+  data?: Maybe<Array<Maybe<SongFilesCreateInput>>>
+};
+
+
+export type MutationUpdateSongFileArgs = {
+  id: Scalars['ID'],
+  data?: Maybe<SongFileUpdateInput>
+};
+
+
+export type MutationUpdateSongFilesArgs = {
+  data?: Maybe<Array<Maybe<SongFilesUpdateInput>>>
+};
+
+
+export type MutationDeleteSongFileArgs = {
+  id: Scalars['ID']
+};
+
+
+export type MutationDeleteSongFilesArgs = {
   ids?: Maybe<Array<Scalars['ID']>>
 };
 
@@ -874,6 +922,10 @@ export type Query = {
   Song?: Maybe<Song>,
   _allSongsMeta?: Maybe<_QueryMeta>,
   _SongsMeta?: Maybe<_ListMeta>,
+  allSongFiles?: Maybe<Array<Maybe<SongFile>>>,
+  SongFile?: Maybe<SongFile>,
+  _allSongFilesMeta?: Maybe<_QueryMeta>,
+  _SongFilesMeta?: Maybe<_ListMeta>,
   allSongKeys?: Maybe<Array<Maybe<SongKey>>>,
   SongKey?: Maybe<SongKey>,
   _allSongKeysMeta?: Maybe<_QueryMeta>,
@@ -1048,6 +1100,29 @@ export type Query_AllSongsMetaArgs = {
 };
 
 
+export type QueryAllSongFilesArgs = {
+  where?: Maybe<SongFileWhereInput>,
+  search?: Maybe<Scalars['String']>,
+  orderBy?: Maybe<Scalars['String']>,
+  first?: Maybe<Scalars['Int']>,
+  skip?: Maybe<Scalars['Int']>
+};
+
+
+export type QuerySongFileArgs = {
+  where: SongFileWhereUniqueInput
+};
+
+
+export type Query_AllSongFilesMetaArgs = {
+  where?: Maybe<SongFileWhereInput>,
+  search?: Maybe<Scalars['String']>,
+  orderBy?: Maybe<Scalars['String']>,
+  first?: Maybe<Scalars['Int']>,
+  skip?: Maybe<Scalars['Int']>
+};
+
+
 export type QueryAllSongKeysArgs = {
   where?: Maybe<SongKeyWhereInput>,
   search?: Maybe<Scalars['String']>,
@@ -1203,6 +1278,8 @@ export type Song = {
   length?: Maybe<Scalars['String']>,
   publishedDate?: Maybe<Scalars['String']>,
   image?: Maybe<CloudinaryImage_File>,
+  songFiles?: Maybe<Array<Maybe<SongFile>>>,
+  _songFilesMeta?: Maybe<_QueryMeta>,
   url?: Maybe<Scalars['String']>,
 };
 
@@ -1224,6 +1301,24 @@ export type Song_KeysMetaArgs = {
   skip?: Maybe<Scalars['Int']>
 };
 
+
+export type SongSongFilesArgs = {
+  where?: Maybe<SongFileWhereInput>,
+  search?: Maybe<Scalars['String']>,
+  orderBy?: Maybe<Scalars['String']>,
+  first?: Maybe<Scalars['Int']>,
+  skip?: Maybe<Scalars['Int']>
+};
+
+
+export type Song_SongFilesMetaArgs = {
+  where?: Maybe<SongFileWhereInput>,
+  search?: Maybe<Scalars['String']>,
+  orderBy?: Maybe<Scalars['String']>,
+  first?: Maybe<Scalars['Int']>,
+  skip?: Maybe<Scalars['Int']>
+};
+
 export type SongCreateInput = {
   title?: Maybe<Scalars['String']>,
   state?: Maybe<SongStateType>,
@@ -1233,6 +1328,76 @@ export type SongCreateInput = {
   timeSignature?: Maybe<Scalars['String']>,
   length?: Maybe<Scalars['String']>,
   image?: Maybe<Scalars['Upload']>,
+  songFiles?: Maybe<SongFileRelateToManyInput>,
+};
+
+export type SongFile = {
+   __typename?: 'SongFile',
+  _label_?: Maybe<Scalars['String']>,
+  id?: Maybe<Scalars['ID']>,
+  file?: Maybe<File>,
+  key?: Maybe<SongKey>,
+  instrument?: Maybe<Instrument>,
+  song?: Maybe<Song>,
+};
+
+export type SongFileCreateInput = {
+  file?: Maybe<Scalars['Upload']>,
+  key?: Maybe<SongKeyRelateToOneInput>,
+  instrument?: Maybe<InstrumentRelateToOneInput>,
+  song?: Maybe<SongRelateToOneInput>,
+};
+
+export type SongFileRelateToManyInput = {
+  create?: Maybe<Array<Maybe<SongFileCreateInput>>>,
+  connect?: Maybe<Array<Maybe<SongFileWhereUniqueInput>>>,
+  disconnect?: Maybe<Array<Maybe<SongFileWhereUniqueInput>>>,
+  disconnectAll?: Maybe<Scalars['Boolean']>,
+};
+
+export type SongFilesCreateInput = {
+  data?: Maybe<SongFileCreateInput>,
+};
+
+export type SongFilesUpdateInput = {
+  id: Scalars['ID'],
+  data?: Maybe<SongFileUpdateInput>,
+};
+
+export type SongFileUpdateInput = {
+  file?: Maybe<Scalars['Upload']>,
+  key?: Maybe<SongKeyRelateToOneInput>,
+  instrument?: Maybe<InstrumentRelateToOneInput>,
+  song?: Maybe<SongRelateToOneInput>,
+};
+
+export type SongFileWhereInput = {
+  AND?: Maybe<Array<Maybe<SongFileWhereInput>>>,
+  OR?: Maybe<Array<Maybe<SongFileWhereInput>>>,
+  id?: Maybe<Scalars['ID']>,
+  id_not?: Maybe<Scalars['ID']>,
+  id_in?: Maybe<Array<Maybe<Scalars['ID']>>>,
+  id_not_in?: Maybe<Array<Maybe<Scalars['ID']>>>,
+  file?: Maybe<Scalars['String']>,
+  file_not?: Maybe<Scalars['String']>,
+  file_contains?: Maybe<Scalars['String']>,
+  file_not_contains?: Maybe<Scalars['String']>,
+  file_starts_with?: Maybe<Scalars['String']>,
+  file_not_starts_with?: Maybe<Scalars['String']>,
+  file_ends_with?: Maybe<Scalars['String']>,
+  file_not_ends_with?: Maybe<Scalars['String']>,
+  file_in?: Maybe<Array<Maybe<Scalars['String']>>>,
+  file_not_in?: Maybe<Array<Maybe<Scalars['String']>>>,
+  key?: Maybe<SongKeyWhereInput>,
+  key_is_null?: Maybe<Scalars['Boolean']>,
+  instrument?: Maybe<InstrumentWhereInput>,
+  instrument_is_null?: Maybe<Scalars['Boolean']>,
+  song?: Maybe<SongWhereInput>,
+  song_is_null?: Maybe<Scalars['Boolean']>,
+};
+
+export type SongFileWhereUniqueInput = {
+  id: Scalars['ID'],
 };
 
 export type SongKey = {
@@ -1250,6 +1415,13 @@ export type SongKeyRelateToManyInput = {
   create?: Maybe<Array<Maybe<SongKeyCreateInput>>>,
   connect?: Maybe<Array<Maybe<SongKeyWhereUniqueInput>>>,
   disconnect?: Maybe<Array<Maybe<SongKeyWhereUniqueInput>>>,
+  disconnectAll?: Maybe<Scalars['Boolean']>,
+};
+
+export type SongKeyRelateToOneInput = {
+  create?: Maybe<SongKeyCreateInput>,
+  connect?: Maybe<SongKeyWhereUniqueInput>,
+  disconnect?: Maybe<SongKeyWhereUniqueInput>,
   disconnectAll?: Maybe<Scalars['Boolean']>,
 };
 
@@ -1335,6 +1507,7 @@ export type SongUpdateInput = {
   timeSignature?: Maybe<Scalars['String']>,
   length?: Maybe<Scalars['String']>,
   image?: Maybe<Scalars['Upload']>,
+  songFiles?: Maybe<SongFileRelateToManyInput>,
   url?: Maybe<Scalars['String']>,
 };
 
@@ -1435,6 +1608,10 @@ export type SongWhereInput = {
   image_not_ends_with?: Maybe<Scalars['String']>,
   image_in?: Maybe<Array<Maybe<Scalars['String']>>>,
   image_not_in?: Maybe<Array<Maybe<Scalars['String']>>>,
+  songFiles_every?: Maybe<SongFileWhereInput>,
+  songFiles_some?: Maybe<SongFileWhereInput>,
+  songFiles_none?: Maybe<SongFileWhereInput>,
+  songFiles_is_null?: Maybe<Scalars['Boolean']>,
   url?: Maybe<Scalars['String']>,
   url_not?: Maybe<Scalars['String']>,
   url_contains?: Maybe<Scalars['String']>,
@@ -1743,7 +1920,20 @@ export type GetSongQuery = (
     )>, image: Maybe<(
       { __typename?: 'CloudinaryImage_File' }
       & Pick<CloudinaryImage_File, 'publicUrl'>
-    )> }
+    )>, songFiles: Maybe<Array<Maybe<(
+      { __typename?: 'SongFile' }
+      & Pick<SongFile, 'id'>
+      & { file: Maybe<(
+        { __typename?: 'File' }
+        & Pick<File, 'path' | 'publicUrl'>
+      )>, key: Maybe<(
+        { __typename?: 'SongKey' }
+        & Pick<SongKey, 'name'>
+      )>, instrument: Maybe<(
+        { __typename?: 'Instrument' }
+        & Pick<Instrument, 'name'>
+      )> }
+    )>>> }
   )>>> }
 );
 
@@ -1966,6 +2156,19 @@ export const GetSongDocument = gql`
     }
     image {
       publicUrl
+    }
+    songFiles {
+      id
+      file {
+        path
+        publicUrl
+      }
+      key {
+        name
+      }
+      instrument {
+        name
+      }
     }
   }
 }

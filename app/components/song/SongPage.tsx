@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react'
 import { gql } from "apollo-boost";
-import { useGetSongQuery } from '../../api/graphql-client';
+import { useGetSongQuery, SongFile } from '../../api/graphql-client';
 import CSS from 'csstype';
 import { Tab, Tabs } from 'react-bootstrap'
 import Multitrack from './Multitrack';
@@ -47,6 +47,19 @@ const GET_SONG = gql`
         image{
             publicUrl
         }
+        songFiles{
+            id,
+            file{
+                path,
+                publicUrl
+            }
+            key{
+                name
+            },
+            instrument{
+                name
+            }
+        }
     }
 }
 `;
@@ -69,6 +82,7 @@ const SongPage: FunctionComponent<Props> = ({ slug }) => {
 
             let artist = song.artist ? song.artist.description : null;
             let imageUrl = song.image ? song.image.publicUrl : "/images/album-placeholder.png";
+            let songFiles = song.songFiles as SongFile[];
 
             songPage = (
                 <div>
@@ -85,7 +99,7 @@ const SongPage: FunctionComponent<Props> = ({ slug }) => {
                     </div>
                     <Tabs id="uncontrolled-tab-example" style={tabContainerStyle}>
                         <Tab eventKey="multitrack" title="Multitrack">
-                            <Multitrack />
+                            <Multitrack files={songFiles} />
                         </Tab>
                         <Tab eventKey="videos" title="Videos">
                             <Videos />

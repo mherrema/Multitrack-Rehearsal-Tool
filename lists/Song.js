@@ -29,10 +29,12 @@ module.exports = {
             many: true
         },
         bpm: {
-            type: Integer
+            type: Integer,
+            label: "BPM"
         },
         timeSignature: {
-            type: Text
+            type: Text,
+            label: "Time Signature"
         },
         length: {
             type: Text
@@ -48,6 +50,12 @@ module.exports = {
         image: {
             type: CloudinaryImage,
             adapter: cloudinaryAdapter
+        },
+        songFiles: {
+            type: Relationship,
+            ref: 'SongFile',
+            many: true,
+            label: "Song Files"
         },
         url: {
             access: {

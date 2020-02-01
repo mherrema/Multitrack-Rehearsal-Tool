@@ -80,6 +80,9 @@ keystone.createList('Setting', SettingSchema);
 const SongSchema = require('./lists/Song.js');
 keystone.createList('Song', SongSchema);
 
+const SongFileSchema = require('./lists/SongFile.js');
+keystone.createList('SongFile', SongFileSchema);
+
 const SongKeySchema = require('./lists/SongKey.js');
 keystone.createList('SongKey', SongKeySchema);
 
