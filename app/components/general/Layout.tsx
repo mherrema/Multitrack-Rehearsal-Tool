@@ -4,6 +4,9 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks'
 import 'bootstrap/dist/css/bootstrap.css';
+// import '@fortawesome/fontawesome-free/css/v4-shims.css';
+// import '@fortawesome/fontawesome-free/css/fontawesome.css';
+import '@fortawesome/fontawesome-svg-core/styles.css';
 import Fonts from './Fonts'
 import "../../styles/styles.scss";
 import Emitter from "../../js/emitter";

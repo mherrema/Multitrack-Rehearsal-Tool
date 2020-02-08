@@ -49,7 +49,8 @@ export default class Multitrack extends Component<Props, State> {
             //@ts-ignore
             playlist.load(trackArray).then(() => {
                 setupEmitter(playlist);
-                // $(".automatic-scroll").click();
+                //@ts-ignore
+                document.querySelector(".automatic-scroll").click();
                 // $(".playlist__loading").css("display", "none");
                 //can do stuff with the playlist.
             });
@@ -57,20 +58,28 @@ export default class Multitrack extends Component<Props, State> {
 
         return (
             <div>
-                Multitracks
                 {/* <div className="button-group playback-controls"> */}
-                <button className="btn-pause button btn-warning"><i className="fa fa-pause"></i>Pause</button>
-                <button className="btn-play button btn-success"><i className="fa fa-play"></i>Play</button>
-                <button className="btn-stop button btn-danger"><i className="fa fa-stop"></i>Stop</button>
+                <div className="playlist-top-bar">
+                    <div className="playlist-toolbar">
+                        <div className="playback-controls">
+                            <div className="btn-group" role="group" aria-label="Basic example">
+                                <button className="btn-pause button"><i className="fa fa-pause"></i></button>
+                                <button className="btn-play button"><i className="fa fa-play"></i></button>
+                                <button className="btn-stop button"><i className="fa fa-stop"></i></button>
+                                <button className="btn-rewind button"><i className="fa fa-fast-backward"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 {/* </div> */}
-                <div className="checkbox">
+                <div className="checkbox" style={{ display: "none" }}>
                     <label>
                         <input type="checkbox" className="automatic-scroll" /> Automatic Scroll
 			    </label>
                 </div>
-
                 <div id="playlist"></div>
-                {this.props.files.map(file => {
+                {/* {this.props.files.map(file => {
                     return (
                         <div key={file.id}>
                             <p>{file.file.publicUrl}</p>
@@ -78,7 +87,7 @@ export default class Multitrack extends Component<Props, State> {
                             <p>{file.key.name}</p>
                         </div>
                     )
-                })}
+                })} */}
             </div>
         )
     }
